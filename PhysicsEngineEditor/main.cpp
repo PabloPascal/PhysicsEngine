@@ -12,17 +12,21 @@ void drawCircle(SDL_Renderer* renderer, Phx::Circle& circle){
 
     float r = circle.get_radius();
 
+    SDL_SetRenderDrawColor(renderer, 150, 150, 0, 1);
+
     for(float i = 0; i < 2*r; i++){
         for(float j = 0; j < 2*r; j++){
 
             float dx = i - r;
             float dy = j - r;
 
-            if(dx * dx + dy*dy < r*r){
+            if(dx * dx + dy*dy <= (r+1)*(r+1) && dx * dx + dy*dy >= (r-1)*(r-1)){
                 SDL_RenderDrawPoint(renderer, circle.get_position().x + dx, circle.get_position().y + dy);
             }
         }
     }
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
+
 }
 
 
@@ -30,33 +34,7 @@ void drawRect(SDL_Renderer* renderer, Phx::Rect& rect){
     
     SDL_Rect render_rect;
 
-    Phx::Vec2 l11 = (rect.get_normal2() - rect.get_normal1()) * rect.get_size().x / 2;
-    Phx::Vec2 l12 = (rect.get_normal2() + rect.get_normal1()) * rect.get_size().y /2;
 
-
-    float px1 = (rect.get_position() + l11).x;
-    float py1 = (rect.get_position() + l11).y;
-
-    float px2 = (rect.get_position() + l12).x;
-    float py2 = (rect.get_position() + l12).y;
-
-    float px3 = (rect.get_position() - l11).x;
-    float py3 = (rect.get_position() - l11).y;
-    
-    float px4 = (rect.get_position() - l12).x;
-    float py4 = (rect.get_position() - l12).y;
-
-
-
-    render_rect.x = px1;
-    render_rect.y = py1;
-    render_rect.w = rect.get_size().x;
-    render_rect.h = rect.get_size().y;
-
-    // std::cout << "px1 = " << px1 << std::endl;
-    // std::cout << "px2 = " << px2 << std::endl;
-
-    //SDL_RenderDrawRect(renderer, &render_rect);
 
     SDL_RenderDrawLine(renderer, 40, 12, 23, 22);
 
@@ -66,32 +44,55 @@ void drawRect(SDL_Renderer* renderer, Phx::Rect& rect){
         {
         SDL_RenderDrawLine(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y, 
                                     rect.get_vertices()[i+1].x, rect.get_vertices()[i+1].y);
+        SDL_RenderDrawPoint(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y);
+
         }
         else{
             SDL_RenderDrawLine(renderer, rect.get_vertices()[3].x, rect.get_vertices()[3].y, 
                                     rect.get_vertices()[0].x, rect.get_vertices()[0].y);
+            SDL_RenderDrawPoint(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y);
         }
     } 
-    // SDL_RenderDrawLine(renderer, px1, py1, px2, py2);
-    // SDL_RenderDrawLine(renderer, px2, py2, px3, py3);
-    // SDL_RenderDrawLine(renderer, px3, py3, px4, py4);
-    // SDL_RenderDrawLine(renderer, px4, py4, px1, py1);
-
-
-
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-
-    SDL_RenderDrawPoint(renderer, px1, py1);
-    SDL_RenderDrawPoint(renderer, px2, py2);
-    SDL_RenderDrawPoint(renderer, px3, py3);
-    SDL_RenderDrawPoint(renderer, px4, py4);
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
 
     
 
 }
+
+
+
+void drawDebugLine(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
+{
+    float min_dist = std::numeric_limits<float>::max();
+    Phx::Vec2 vert;
+    Phx::Vec2 center = c.get_position();
+
+
+    for(int i = 0; i < 4; i++)
+    {   
+        float dist = Phx::length( c.get_position() - r.get_vertices()[i]);
+        if(dist < min_dist)
+            {
+                min_dist = dist;
+                vert = r.get_vertices()[i];
+            }
+    }
+
+
+    Phx::Vec2 project_vec1 =  r.get_normal1() * -Phx::dot(c.get_position() - vert, r.get_normal1()); 
+    Phx::Vec2 project_vec2 =  r.get_normal2() * -Phx::dot(c.get_position() - vert, r.get_normal2()); 
+
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec1.x, center.y + project_vec1.y);
+    SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec2.x, center.y + project_vec2.y);
+
+    SDL_RenderDrawLine(renderer, vert.x, vert.y, center.x, center.y);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+
+}
+
 
 
 float speed = 250;
@@ -171,51 +172,48 @@ int main(){
     auto previousTime = std::chrono::high_resolution_clock::now();
     float deltaTime = 0.0f;
 
-    Phx::Circle circle1(x, 50, 50);   
-    circle1.set_velocity({0,0});
-    circle1.set_elasticity(0.8);
-    circle1.set_mass(20);
-    circle1.set_move_on(true);
-    //circle1.set_gravity_on(true);
-    circle1.set_collision_on(true);
+    Phx::Circle *circle1 = new Phx::Circle(540, 510, 50);   
+    circle1->set_velocity({0,0});
+    circle1->set_elasticity(0.8);
+    circle1->set_mass(20);
+    circle1->set_move_on(true);
+    //circle1->set_gravity_on(true);
+    circle1->set_collision_on(true);
 
-    Phx::Circle circle2(x, 200, 50);   
-    circle2.set_velocity({0,0});
-    circle2.set_elasticity(0.5);
-    circle2.set_mass(30);
-    circle2.set_move_on(true);
+    Phx::Circle* circle2 = new Phx::Circle(x, 200, 50);   
+    circle2->set_velocity({0,0});
+    circle2->set_elasticity(0.5);
+    circle2->set_mass(30);
+    circle2->set_move_on(true);
     //circle2.set_gravity_on(true);
-    circle2.set_collision_on(true);
+    circle2->set_collision_on(true);
 
-    Phx::Circle circle3(x + 5, y, 50);   
-    circle3.set_velocity({0,0});
-    circle3.set_elasticity(0.5);
-    circle3.set_mass(30);
-    circle3.set_move_on(true);
+    Phx::Circle* circle3 = new Phx::Circle(x + 5, y, 50);   
+    circle3->set_velocity({0,0});
+    circle3->set_elasticity(0.5);
+    circle3->set_mass(30);
+    circle3->set_move_on(true);
     //circle3.set_gravity_on(true);
-    circle3.set_collision_on(true);
+    circle3->set_collision_on(true);
 
     Phx::PhysicsWorld world({WIDTH, HEIGHT});
-    //world.generate_circles(1000);
-    //world.add_circle(&circle1);
+    //world.generate_circles(700);
+    //world.add_circle(circle1);
     //world.add_circle(&circle2);
     //world.add_circle(&circle3);
 
     std::shared_ptr<Phx::Rect> rect0
-    = std::make_shared<Phx::Rect>(Phx::Vec2(x, y), Phx::Vec2(200,200), 20.f);   
-    rect0->set_velocity({50,0});
+    = std::make_shared<Phx::Rect>(Phx::Vec2(644, 392), Phx::Vec2(200,200), 20.f);   
+    rect0->set_velocity({0,0});
     
     std::shared_ptr<Phx::Rect> rect1
     = std::make_shared<Phx::Rect>(Phx::Vec2(200, 200),Phx::Vec2(200,200), 20.f);   
     rect1->set_velocity({0,0});
 
-    rect0->set_rotate(rad);
 
     world.add_rect(rect0);
-    world.add_rect(rect1);
 
-    Phx::SATcheckCollision(*rect0, *rect1);
-
+    int count = 0;
 
     while(!quit){
 
@@ -234,9 +232,10 @@ int main(){
                     
                     std::shared_ptr<Phx::Circle> circle = std::make_shared<Phx::Circle>(event.button.x, event.button.y, 23);   
                     circle->set_velocity({0,0});
-                    circle->set_elasticity(0.8);
+                    circle->set_elasticity(0.4);
                     circle->set_mass(5);
                     circle->set_move_on(true);
+                    circle->set_acceleration({0, 1000});
                     circle->set_gravity_on(true);
                     circle->set_collision_on(true);
                     world.add_circle(circle);
@@ -261,25 +260,27 @@ int main(){
         const Uint8* keyState = SDL_GetKeyboardState(NULL);
         handleInput(keyState);
         rect0->set_velocity({velocityX, velocityY});
-        // x += velocityX * deltaTime;
-        // y += velocityY * deltaTime;
+        
+        if(count < 700)
+            world.generate_circles(1);
+        
+        count++;
 
         rect0->set_rotate(rad*deltaTime);
-        rect0->update(deltaTime);
-
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+        
         world.update(deltaTime);
-    
+
 
         for(auto it : world.get_circles()){
             drawCircle(renderer, *it);
         }
 
-        if(Phx::SATcheckCollision(*rect0, *rect1)){
+        if(Phx::AABBcheckCollision(*rect0, *rect1)){
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         }else{
             SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
@@ -288,7 +289,10 @@ int main(){
         for(auto it : world.get_rects()){
             drawRect(renderer, *it);
         }
+
         
+        drawDebugLine(renderer, *rect0, *circle1);
+
         SDL_RenderPresent(renderer);
 
         SDL_SetWindowTitle(window, std::to_string(1.f/deltaTime).c_str());

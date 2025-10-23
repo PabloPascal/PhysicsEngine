@@ -12,7 +12,8 @@ public:
 
     float a11, a12, a21, a22;
 
-
+    Matrix2() : a11(0), a12(0), a21(0), a22(0)
+    {}
 
     Matrix2(float _a11, float _a12, float _a21, float _a22) : 
     a11(_a11), a12(_a12), a21(_a21), a22(_a22) 
@@ -121,6 +122,14 @@ static Matrix2 inverse(const Matrix2& mat){
 
 
 }
+
+
+static Matrix2 operator*(float scalar, Matrix2 mat){
+        
+        return Matrix2(mat.a11 * scalar, mat.a12 * scalar,
+                      mat.a21 * scalar, mat.a22 * scalar);
+
+    }
 
 
 }//namespace

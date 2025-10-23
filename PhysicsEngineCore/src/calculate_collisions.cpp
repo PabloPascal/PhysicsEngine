@@ -165,7 +165,7 @@ bool AABBcheckCollision(Rect& r1, Rect& r2)
 }
 
 
-bool SATcheckCollision(Rect& r1, Rect& r2)
+bool SATcheckCollision(Rect& r1, Rect& r2, float& diff)
 {
 
     Vec2 allAxis[4] = {r1.get_normal1(), r1.get_normal2(), r2.get_normal1(), r2.get_normal2()};
@@ -192,8 +192,11 @@ bool SATcheckCollision(Rect& r1, Rect& r2)
         FindProjection(axis, min2, max2, r2_vertices);
 
         if(max1 < min2 || max2 < min1){
+            diff = 0;
             return false;
         }
+
+        diff = std::abs(min1 - min2);
 
     }
 
@@ -218,19 +221,168 @@ void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>
 }
 
 
-void solveRectCollision(Rect& r1, Rect& r2)
+
+Vec2 FindNormal(Rect& rect1, Rect& rect2, float& diff)
 {
+    Vec2 C1 = rect1.get_position();
+    Vec2 C2 = rect2.get_position();
 
-    if(SATcheckCollision(r1, r2)){
+    float w1 = rect1.get_size().x/2.f;
+    float h1 = rect1.get_size().y/2.f;
+    float w2 = rect2.get_size().x/2.f;
+    float h2 = rect2.get_size().y/2.f;
 
- 
+    float left1 =   C1.x - w1;
+    float right1 =  C1.x + w1;
+    float top1 =    C1.y - h1;
+    float bottom1 = C1.y + h1;
+    
+    float left2 =   C2.x - w2;
+    float right2 =  C2.x + w2;
+    float top2 =    C2.y - h2;
+    float bottom2 = C2.y + h2;
+    
+
+    if(top1 < bottom2 && (left1 < left2 || right1 > right2))
+    {
+        diff = std::abs(top1 - bottom2);
+        return {0,1};
+    }
+    if(bottom1 > top2 && (left1 < left2 || right1 > right2))
+    {
+        diff = std::abs(top1 - bottom2);
+        return {0,-1};
+    }
+    if(right1 > left2 && (bottom1 > top2 || bottom2 > top1))
+    {
+        return {1,0};
+    }
+    if(left1 < right2 && (bottom1 > top2 || bottom2 > top1))
+    {
+        return {-1,0};
+    }
+
+
+
+
+    return {0,0};
+}
+
+
+
+Vec2 FindNormal(Rect& rect, Vec2 point)
+{
+        float x_b = rect.get_position().x;
+        float y_b = rect.get_position().y;
+
+        float w = rect.get_size().x;
+        float h = rect.get_size().y;
+
+        if (point.x > x_b - w / 2 && point.x < x_b + w / 2) {
+
+            if (point.y - y_b >= 0) return { 0, 1 };
+            else return { 0, -1 };
+        }
+
+        if (point.y > y_b - h && point.y < y_b + h) {
+            if (point.x - x_b > 0) return { 1.f,0.f };
+            else                   return {-1.f,0.f };
+        }
+
+        return {0,0};
+
+}
+
+
+void solveAABBCollision(Rect& r1, Rect& r2)
+{
+    if(AABBcheckCollision(r1, r2)){
+        float diff;
+        Vec2 n = FindNormal(r1, r2, diff);
+
+        Vec2 v1 = r1.get_velocity();
+        Vec2 v2 = r2.get_velocity();
+
+        r1.set_position(r1.get_position() + n * diff  );
+        r2.set_position(r2.get_position() + n * -diff  );
+
 
     }
 
 }
 
 
+void CircleVsRectCollsion(Circle& circle, Rect& rect)
+{
+    Vec2 n;
+    float penetration = 0;
+    Vec2 contact_point;
+    if(CircleRectCheckCollision(circle, rect, n, contact_point, penetration))
+    {
+        Vec2 v = circle.get_velocity();
+    
+        //seperate
+        circle.set_position(circle.get_position() + n * penetration);
+
+        //change velocity
+        if(dot(n, v) < 0)
+        {
+            circle.set_velocity((v + n * dot(v*(-1), n) * 2) * circle.get_elasticity());
+        }
+        
+    }
+
+
 
 }
+
+
+
+bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contactPoint, float& penetration)
+{
+
+    Vec2 center = circle.get_position();
+    float r = circle.get_radius();
+
+    float half_w = rect.get_size().x / 2.f;
+    float half_h = rect.get_size().y / 2.f;
+
+    Vec2 n1 = rect.get_normal1();
+    Vec2 n2 = rect.get_normal2();
+
+    Vec2 dv = center - rect.get_position();
+    Vec2 local = {dot(dv, n1), dot(dv, n2)};
+    Vec2 closestPoint;
+   
+    //clamping
+    closestPoint.x = std::max(-half_w, std::min(dot(dv, n1), half_w));
+    closestPoint.y = std::max(-half_h, std::min(dot(dv, n2), half_h));
+
+
+    Vec2 dir = {local.x - closestPoint.x, local.y - closestPoint.y};
+
+    float dist = dot(dir, dir); //square of dist
+    Vec2 local_norm = dir.normalize();
+    normal = transpose(rect.get_transform()) * local_norm; 
+
+    penetration = r - std::sqrt(dist);  
+    
+    Matrix2 transform(n1, n2);
+
+    //inverse matrix for ortogonal matrix is transpone matrix
+    normal = transform * local_norm; 
+
+    contactPoint = rect.get_position() + transpose(rect.get_transform()) * closestPoint;
+
+    if(dist <= r * r)
+        return true;
+    else    
+        return false;
+}
+
+
+
+
+} // namespace 
 
 

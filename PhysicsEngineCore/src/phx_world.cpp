@@ -19,11 +19,8 @@ PhysicsWorld::PhysicsWorld(Vec2 border){
 void PhysicsWorld::update(float dt){
 
     for(auto circle : circles){
-        if(circle->get_move_indicate()){
-            Vec2 new_pos = circle->get_position() + circle->get_velocity() * dt;
-            circle->set_position(new_pos);
-            boundaryCollision(*circle, m_border);
-        }
+        circle->update(dt);
+        boundaryCollision(*circle, m_border);
     }
 
 
@@ -51,11 +48,35 @@ void PhysicsWorld::update(float dt){
 
     }
 
+    for(auto c : circles)
+    {
+        for(auto r : rectangles)
+        {
+            CircleVsRectCollsion(*c, *r);
+        }
+    }
+
+    for(auto r : rectangles)
+    {
+        r->update(dt);
+    }
+
+
+    // for(int i = 0; i < rectangles.size(); i++)
+    // {
+    //     for(int j = i + 1; j < rectangles.size(); j++)
+    //     {
+    //         solveAABBCollision(*rectangles[i], *rectangles[j]);
+    //     }
+    // }
+
 
 }
 
 void PhysicsWorld::add_circle(Circle* circle)
 {
+    if(circle->get_gravity_indicate())
+        circle->set_acceleration({0, m_Gravity});
     circles.emplace_back(circle);
 }
 

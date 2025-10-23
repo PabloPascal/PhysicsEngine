@@ -1,5 +1,5 @@
 #include "phx_circle.hpp"
-
+#include <iostream>
 
 namespace Phx{
 
@@ -37,6 +37,14 @@ Circle::Circle(Phx::Vec2 position, float radius) :
 b_move(false)
 
 {}
+
+
+void Circle::update(float dt)
+{  
+
+    m_velocity = m_velocity + m_acceleration * dt;
+    m_center = m_center + m_velocity * dt;
+}
 
 
 }

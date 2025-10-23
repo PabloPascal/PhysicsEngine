@@ -14,6 +14,9 @@ namespace Phx{
     Vec2() : x(0), y(0)
     {}
 
+    Vec2(float arg) : x(arg), y(arg)
+    {}
+
     Vec2(float vx, float vy) : x(vx), y(vy)
     {}
 
@@ -80,7 +83,17 @@ namespace Phx{
     }
 
 
+
+
+static Vec2 operator*(float scalar, Vec2 vec)
+{
+    return Vec2(vec.x * scalar, vec.y * scalar);
 }
+
+}//namespace
+
+
+
 
 
 #endif
