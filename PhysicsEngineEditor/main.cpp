@@ -198,7 +198,7 @@ int main(){
 
     Phx::PhysicsWorld world({WIDTH, HEIGHT});
     //world.generate_circles(700);
-    //world.add_circle(circle1);
+    world.add_circle(circle1);
     //world.add_circle(&circle2);
     //world.add_circle(&circle3);
 
@@ -212,6 +212,7 @@ int main(){
 
 
     world.add_rect(rect0);
+    world.add_rect(rect1);
 
     int count = 0;
 
@@ -261,9 +262,7 @@ int main(){
         handleInput(keyState);
         rect0->set_velocity({velocityX, velocityY});
         
-        if(count < 700)
-            world.generate_circles(1);
-        
+
         count++;
 
         rect0->set_rotate(rad*deltaTime);
@@ -279,8 +278,9 @@ int main(){
         for(auto it : world.get_circles()){
             drawCircle(renderer, *it);
         }
-
-        if(Phx::AABBcheckCollision(*rect0, *rect1)){
+        Phx::Vec2 n;
+        float d;
+        if(Phx::AABBcheckCollision(*rect0, *rect1, n, d)){
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         }else{
             SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);

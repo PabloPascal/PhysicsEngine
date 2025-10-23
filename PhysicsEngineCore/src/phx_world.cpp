@@ -62,13 +62,13 @@ void PhysicsWorld::update(float dt){
     }
 
 
-    // for(int i = 0; i < rectangles.size(); i++)
-    // {
-    //     for(int j = i + 1; j < rectangles.size(); j++)
-    //     {
-    //         solveAABBCollision(*rectangles[i], *rectangles[j]);
-    //     }
-    // }
+    for(int i = 0; i < rectangles.size(); i++)
+    {
+        for(int j = i + 1; j < rectangles.size(); j++)
+        {
+            solveAABBCollision(*rectangles[i], *rectangles[j]);
+        }
+    }
 
 
 }

@@ -18,7 +18,7 @@ void boundaryCollision(Circle& c, const Vec2 border);
 
 void separateCircleWalls(Circle& c1, Vec2 normal, float diff);
 
-bool AABBcheckCollision(Rect& r1, Rect& r2);
+bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate);
 
 bool SATcheckCollision(Rect& r1, Rect& r2, float& diff);
 
@@ -34,9 +34,6 @@ void CircleVsRectCollsion(Circle& circle, Rect& rect);
 bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contactPoint, float& penetration);
 
 Vec2 FindNormal(Rect& rect, Vec2 point);
-
-Vec2 FindNormal(Rect& rect1, Rect& rect2, float& diff);
-
 
 
 }

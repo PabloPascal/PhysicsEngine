@@ -138,7 +138,7 @@ void boundaryCollision(Circle& c, const Vec2 border)
 
 }
 
-bool AABBcheckCollision(Rect& r1, Rect& r2)
+bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate)
 {
     float r1_x_min = r1.get_position().x - r1.get_size().x / 2;
     float r1_x_max = r1.get_position().x + r1.get_size().x / 2;
@@ -152,6 +152,26 @@ bool AABBcheckCollision(Rect& r1, Rect& r2)
  
     float r2_y_min = r2.get_position().y - r2.get_size().y / 2;
     float r2_y_max = r2.get_position().y + r2.get_size().y / 2;
+
+    
+    
+    float overlap_right = r1_x_max - r2_x_min;  //n1
+    float overlap_left = r2_x_max - r1_x_min;   //-n1
+    float overlap_top = r1_y_max - r2_y_min;    //n2
+    float overlap_bottom = r2_y_max - r1_y_min;  //-n2
+    
+    Vec2 n1 = r1.get_normal1();
+    Vec2 n2 = r2.get_normal2();
+
+    float min_overlap = std::min({overlap_left, overlap_right, overlap_bottom, overlap_top});
+
+    penetrate = min_overlap;
+
+    if(min_overlap == overlap_right) normal = -1*n1;
+    else if(min_overlap == overlap_left) normal = n1;
+    else if(min_overlap == overlap_top) normal = -1 * n2;
+    else if(min_overlap == overlap_bottom) normal = n2;
+
 
 
     if(r1_x_min < r2_x_max && r2_x_min < r1_x_max){
@@ -222,83 +242,12 @@ void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>
 
 
 
-Vec2 FindNormal(Rect& rect1, Rect& rect2, float& diff)
-{
-    Vec2 C1 = rect1.get_position();
-    Vec2 C2 = rect2.get_position();
-
-    float w1 = rect1.get_size().x/2.f;
-    float h1 = rect1.get_size().y/2.f;
-    float w2 = rect2.get_size().x/2.f;
-    float h2 = rect2.get_size().y/2.f;
-
-    float left1 =   C1.x - w1;
-    float right1 =  C1.x + w1;
-    float top1 =    C1.y - h1;
-    float bottom1 = C1.y + h1;
-    
-    float left2 =   C2.x - w2;
-    float right2 =  C2.x + w2;
-    float top2 =    C2.y - h2;
-    float bottom2 = C2.y + h2;
-    
-
-    if(top1 < bottom2 && (left1 < left2 || right1 > right2))
-    {
-        diff = std::abs(top1 - bottom2);
-        return {0,1};
-    }
-    if(bottom1 > top2 && (left1 < left2 || right1 > right2))
-    {
-        diff = std::abs(top1 - bottom2);
-        return {0,-1};
-    }
-    if(right1 > left2 && (bottom1 > top2 || bottom2 > top1))
-    {
-        return {1,0};
-    }
-    if(left1 < right2 && (bottom1 > top2 || bottom2 > top1))
-    {
-        return {-1,0};
-    }
-
-
-
-
-    return {0,0};
-}
-
-
-
-Vec2 FindNormal(Rect& rect, Vec2 point)
-{
-        float x_b = rect.get_position().x;
-        float y_b = rect.get_position().y;
-
-        float w = rect.get_size().x;
-        float h = rect.get_size().y;
-
-        if (point.x > x_b - w / 2 && point.x < x_b + w / 2) {
-
-            if (point.y - y_b >= 0) return { 0, 1 };
-            else return { 0, -1 };
-        }
-
-        if (point.y > y_b - h && point.y < y_b + h) {
-            if (point.x - x_b > 0) return { 1.f,0.f };
-            else                   return {-1.f,0.f };
-        }
-
-        return {0,0};
-
-}
-
 
 void solveAABBCollision(Rect& r1, Rect& r2)
 {
-    if(AABBcheckCollision(r1, r2)){
-        float diff;
-        Vec2 n = FindNormal(r1, r2, diff);
+    Vec2 n;
+    float diff = 0;
+    if(AABBcheckCollision(r1, r2, n, diff)){
 
         Vec2 v1 = r1.get_velocity();
         Vec2 v2 = r2.get_velocity();
