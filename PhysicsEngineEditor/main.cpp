@@ -209,25 +209,38 @@ int main(){
 
     Phx::PhysicsWorld world({WIDTH, HEIGHT});
     //world.generate_circles(700);
-    world.add_circle(circle1);
+    //world.add_circle(circle1);
     //world.add_circle(&circle2);
     //world.add_circle(&circle3);
 
     std::shared_ptr<Phx::Rect> rect0
-    = std::make_shared<Phx::Rect>(Phx::Vec2(644, 392), Phx::Vec2(200,200), 50.f);   
+    = std::make_shared<Phx::Rect>(Phx::Vec2(500, 392), Phx::Vec2(50,50), 20.f);   
     rect0->set_velocity({0,0});
     rect0->set_elasticity(0.5);
+    rect0->set_elasticity(0.8);
+    rect0->set_angle_speed(0);
     rect0->set_collision_indicate(true);
-    //rect0->set_collision_indicate(false);
     
     std::shared_ptr<Phx::Rect> rect1
-    = std::make_shared<Phx::Rect>(Phx::Vec2(200, 200),Phx::Vec2(200,200), 20.f);   
+    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 560),Phx::Vec2(WIDTH,50), std::numeric_limits<float>::max());   
     rect1->set_velocity({0,0});
+    rect1->set_elasticity(0.8);
+    rect1->set_angle_speed(0);
     rect1->set_acceleration({0,0});
     rect1->set_collision_indicate(true);
 
-    world.add_rect(rect0);
+
+    std::shared_ptr<Phx::Rect> rect2
+    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 200),Phx::Vec2(WIDTH/3.f,50), std::numeric_limits<float>::max());   
+    rect2->set_velocity({0,0});
+    rect2->set_elasticity(0.8);
+    rect2->set_angle_speed(0);
+    rect2->set_acceleration({0,0});
+    rect2->set_collision_indicate(true);
+    rect2->set_rotate(30 * 3.1415f / 180.f);
+    //world.add_rect(rect0);
     world.add_rect(rect1);
+    world.add_rect(rect2);
 
 
     while(!quit){
@@ -247,9 +260,8 @@ int main(){
                     
                     std::shared_ptr<Phx::Circle> circle = std::make_shared<Phx::Circle>(event.button.x, event.button.y, 23);   
                     circle->set_velocity({0,0});
-                    circle->set_elasticity(0.4);
-                    circle->set_mass(5);
-                    circle->set_move_on(true);
+                    circle->set_elasticity(0.8);
+                    circle->set_mass(50);
                     circle->set_acceleration({0, 1000});
                     circle->set_gravity_on(true);
                     circle->set_collision_on(true);
@@ -263,7 +275,11 @@ int main(){
                     std::shared_ptr<Phx::Rect> rect
                      = std::make_shared<Phx::Rect>(Phx::Vec2(event.button.x, event.button.y),Phx::Vec2(50,50), 20);   
                     rect->set_velocity({0,0});
-                    rect->set_elasticity(0.6);
+                    rect->set_elasticity(0.5);
+                    rect->set_elasticity(0.8);
+                    rect->set_angle_speed(0);
+                    rect->set_acceleration({0,500});
+                    rect->set_collision_indicate(true);
 
                     world.add_rect(rect);
                     
@@ -307,7 +323,7 @@ int main(){
         }
 
         
-        drawDebug(renderer, *rect0, *circle1);
+        //drawDebug(renderer, *rect0, *circle1);
 
         
 

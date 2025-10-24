@@ -24,7 +24,7 @@ bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate);
 
 bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, float& penetration);
 
-void resolveCollisionSATrects(Rect& r1, Rect& r2);
+void resolveRectsCollision(Rect& r1, Rect& r2);
 
 void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>& vertices);
 

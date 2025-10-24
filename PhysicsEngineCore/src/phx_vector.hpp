@@ -90,6 +90,11 @@ static Vec2 operator*(float scalar, Vec2 vec)
     return Vec2(vec.x * scalar, vec.y * scalar);
 }
 
+static float cross2d(Vec2 v1, Vec2 v2){
+    return v1.x * v2.y - v2.x * v1.y;
+}
+
+
 }//namespace
 
 

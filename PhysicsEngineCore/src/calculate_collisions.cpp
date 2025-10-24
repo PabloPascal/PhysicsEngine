@@ -383,37 +383,75 @@ bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& co
 
 
 
-void resolveCollisionSATrects(Rect& r1, Rect& r2)
+void resolveRectsCollision(Rect& r1, Rect& r2)
 {
 
     Vec2 n;
     float depth;
     Vec2 contact_point;
+
     if(SATcheckCollision(r1, r2, n, contact_point, depth))
     {   
 
+        Vec2 center_mass1 = r1.get_position();
+        Vec2 center_mass2 = r2.get_position();
         Vec2 v1 = r1.get_velocity();
         Vec2 v2 = r2.get_velocity();
-
         float m1 = r1.get_mass();
         float m2 = r2.get_mass();
+        float w1 = r1.get_angle_speed();
+        float w2 = r2.get_angle_speed();
+        float I1 = r1.get_inertia();
+        float I2 = r2.get_inertia();
+
+        Vec2 lever1 = contact_point - center_mass1;
+        Vec2 lever2 = contact_point - center_mass2;  
 
         if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
 
-        float Mass1 = 2 * m2 / (m1 + m2);
-        float Mass2 = 2 * m1 / (m1 + m2);
+        float inv_m1 = 1/m1;
+        float inv_m2 = 1/m2;
 
-        float j = -(1 + r1.get_elasiticy() * r2.get_elasiticy() ) * dot(v1 - v2, n) / (1/m1 + 1/m2);
+        float slop = 0.01;
+        float percent = 0.2;
+
+        float clamp = std::max(depth - slop, 0.f);
+        Vec2 correction = (clamp * percent) / (inv_m1 + inv_m2) * n; 
+
+        r1.set_position(r1.get_position() + correction * inv_m1);
+        r2.set_position(r2.get_position() - correction * inv_m2);
+
+        Vec2 crossVW1( -w1 * lever1.y, w1 * lever1.x);
+        Vec2 crossVW2( -w2 * lever2.y, w2 * lever2.x); 
+
+        Vec2 Vcontact1 = v1 + crossVW1;
+        Vec2 Vcontact2 = v2 + crossVW2;
+
+        Vec2 v_rel = Vcontact1 - Vcontact2;
+
+        float V_n = dot( v_rel, n );
+
+        float perp_l1 = cross2d(lever1, n);
+        float perp_l2 = cross2d(lever2, n);
+
+        float mass_eff =  1 / (inv_m1 + inv_m2 + (perp_l1 * perp_l1) / I1 +  (perp_l2 * perp_l2) / I2 );
+        float elasticity = std::min(r1.get_elasiticy(), r2.get_elasiticy());
+
+        float normal_impulse = -(1 + elasticity) * V_n * mass_eff;
+        Vec2 impulse = normal_impulse * n;
+
+        v1 = v1 + impulse / m1;
+        v2 = v2 - impulse / m2;
+
+        w1 = w1 + cross2d(lever1, impulse) / I1;
+        w2 = w2 - cross2d(lever2, impulse) / I2; 
 
 
-        Vec2 v1_new = v1 + n * (j / m1);
-        Vec2 v2_new = v2 - n * (j / m2);
+        r1.set_velocity( v1 );
+        r2.set_velocity( v2 );
 
-        r1.set_velocity( v1_new );
-        r2.set_velocity( v2_new );
-
-        r1.set_position(r1.get_position() + depth * n);
-        r2.set_position(r2.get_position() - depth * n);
+        r1.set_angle_speed(w1);
+        r2.set_angle_speed(w2);
 
 
 

@@ -69,7 +69,7 @@ void PhysicsWorld::update(float dt){
         for(int j = i + 1; j < rectangles.size(); j++)
         {
             if(rectangles[i]->get_collision_indicate() && rectangles[j]->get_collision_indicate())
-                resolveCollisionSATrects(*rectangles[i], *rectangles[j]);
+                resolveRectsCollision(*rectangles[i], *rectangles[j]);
         }
     }
 
