@@ -20,7 +20,7 @@ bool checkBallsCollision(const Circle& c1, const Circle& c2)
         return false;
 }
 
-void hitBalls(Circle& circle1, Circle& circle2) 
+void resolveCircleCollision(Circle& circle1, Circle& circle2) 
 {
         Vec2 x1 = circle1.get_position();
         Vec2 x2 = circle2.get_position();
@@ -313,23 +313,72 @@ void solveAABBCollision(Rect& r1, Rect& r2)
 }
 
 
-void CircleVsRectCollsion(Circle& circle, Rect& rect)
+void resolveCircleRectCollsion(Circle& circle, Rect& rect)
 {
     Vec2 n;
-    float penetration = 0;
+    float depth = 0;
     Vec2 contact_point;
-    if(CircleRectCheckCollision(circle, rect, n, contact_point, penetration))
+    if(CircleRectCheckCollision(circle, rect, n, contact_point, depth))
     {
-        Vec2 v = circle.get_velocity();
-    
-        //seperate
-        circle.set_position(circle.get_position() + n * penetration);
+        Vec2 center_mass1 = rect.get_position();
+        Vec2 center_mass2 = circle.get_position();
+        Vec2 v1 = rect.get_velocity();
+        Vec2 v2 = circle.get_velocity();
+        float m1 = rect.get_mass();
+        float m2 = circle.get_mass();
+        float w1 = rect.get_angle_speed();
+        float w2 = circle.get_angle_speed();
+        float I1 = rect.get_inertia();
+        float I2 = circle.get_inertia();
 
-        //change velocity
-        if(dot(n, v) < 0)
-        {
-            circle.set_velocity((v + n * dot(v*(-1), n) * 2) * circle.get_elasticity());
-        }
+        Vec2 lever1 = contact_point - center_mass1;
+        Vec2 lever2 = contact_point - center_mass2;  
+
+        if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
+
+        float inv_m1 = 1/m1;
+        float inv_m2 = 1/m2;
+
+        float slop = 0.01;
+        float percent = 0.2;
+
+        float clamp = std::max(depth - slop, 0.f);
+        Vec2 correction = (clamp * percent) / (inv_m1 + inv_m2) * n; 
+
+        rect.set_position(rect.get_position() - correction * inv_m1);
+        circle.set_position(circle.get_position() + correction * inv_m2);
+
+        Vec2 crossVW1( -w1 * lever1.y, w1 * lever1.x);
+        Vec2 crossVW2( -w2 * lever2.y, w2 * lever2.x); 
+
+        Vec2 Vcontact1 = v1 + crossVW1;
+        Vec2 Vcontact2 = v2 + crossVW2;
+
+        Vec2 v_rel = Vcontact1 - Vcontact2;
+
+        float V_n = dot( v_rel, n );
+
+        float perp_l1 = cross2d(lever1, n);
+        float perp_l2 = cross2d(lever2, n);
+
+        float mass_eff =  1 / (inv_m1 + inv_m2 + (perp_l1 * perp_l1) / I1 +  (perp_l2 * perp_l2) / I2 );
+        float elasticity = std::min(rect.get_elasiticy(), circle.get_elasticity());
+
+        float normal_impulse = -(1 + elasticity) * V_n * mass_eff;
+        Vec2 impulse = normal_impulse * n;
+
+        v1 = v1 + impulse / m1;
+        v2 = v2 - impulse / m2;
+
+        w1 = w1 + cross2d(lever1, impulse) / I1;
+        w2 = w2 - cross2d(lever2, impulse) / I2; 
+
+
+        rect.set_velocity( v1 );
+        circle.set_velocity( v2 );
+
+        rect.set_angle_speed(w1);
+        circle.set_angle_speed(w2);
         
     }
 

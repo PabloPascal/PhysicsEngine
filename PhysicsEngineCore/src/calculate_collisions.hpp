@@ -10,7 +10,7 @@ namespace Phx{
 
 bool checkBallsCollision(const Circle& c1, const Circle& c2);
 
-void hitBalls(Circle& circle1, Circle& circle2);
+void resolveCircleCollision(Circle& circle1, Circle& circle2);
 
 void separateBalls(Circle& c1, Circle& c2);
 
@@ -30,7 +30,7 @@ void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>
 
 void solveAABBCollision(Rect& r1, Rect& r2);
 
-void CircleVsRectCollsion(Circle& circle, Rect& rect);
+void resolveCircleRectCollsion(Circle& circle, Rect& rect);
 
 /*
     check collision with SAT algorithm

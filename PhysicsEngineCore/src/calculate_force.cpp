@@ -5,7 +5,8 @@
 namespace Phx{
 
 
-void calcGravityForce(Circle& c1, Circle& c2) {
+void ForceGravity(Circle& c1, Circle& c2)
+ {
 
         constexpr float Gravity = 1000;
 
@@ -29,7 +30,7 @@ void calcGravityForce(Circle& c1, Circle& c2) {
 
 }
 
-void gravity(Circle &c, float gravity,  float dt)
+void FallGravity(Circle &c, float gravity,  float dt)
 {
         float vx = c.get_velocity().x;
         float vy = c.get_velocity().y;

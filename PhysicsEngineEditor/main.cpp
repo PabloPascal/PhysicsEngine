@@ -238,7 +238,7 @@ int main(){
     rect2->set_acceleration({0,0});
     rect2->set_collision_indicate(true);
     rect2->set_rotate(30 * 3.1415f / 180.f);
-    //world.add_rect(rect0);
+    world.add_rect(rect0);
     world.add_rect(rect1);
     world.add_rect(rect2);
 
@@ -262,7 +262,7 @@ int main(){
                     circle->set_velocity({0,0});
                     circle->set_elasticity(0.8);
                     circle->set_mass(50);
-                    circle->set_acceleration({0, 1000});
+                    circle->set_acceleration({0, 500});
                     circle->set_gravity_on(true);
                     circle->set_collision_on(true);
                     world.add_circle(circle);

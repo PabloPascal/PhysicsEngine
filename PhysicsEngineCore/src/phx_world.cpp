@@ -26,7 +26,7 @@ void PhysicsWorld::update(float dt){
 
     for(auto circle : circles){
         if(circle->get_gravity_indicate()){
-            gravity(*circle, m_Gravity, dt);
+            FallGravity(*circle, m_Gravity, dt);
             Vec2 new_pos = circle->get_position() + circle->get_velocity() * dt;
             circle->set_position(new_pos);
             boundaryCollision(*circle, m_border);
@@ -41,7 +41,7 @@ void PhysicsWorld::update(float dt){
         for(size_t j = i+1; j < circles.size(); j++){
             if(checkBallsCollision(*circles[i], *circles[j])){
                 separateBalls(*circles[i], *circles[j]);
-                hitBalls(*circles[i], *circles[j]);
+                resolveCircleCollision(*circles[i], *circles[j]);
                 
             }
         }
@@ -53,7 +53,7 @@ void PhysicsWorld::update(float dt){
         for(auto r : rectangles)
         {
             if(c->get_collision_indicate() && r->get_collision_indicate())
-                CircleVsRectCollsion(*c, *r);
+                resolveCircleRectCollsion(*c, *r);
         }
     }
 

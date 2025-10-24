@@ -6,9 +6,9 @@
 
 namespace Phx{
 
-void calcGravityForce(Circle& c1, Circle& c2);
+void ForceGravity(Circle& c1, Circle& c2);
 
-void gravity(Circle &c, float gravity,  float dt);
+void FallGravity(Circle &c, float gravity,  float dt);
 
 }
 
