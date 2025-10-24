@@ -23,11 +23,21 @@ public:
     inline Vec2 get_normal2() const {return n2;}
     const Vec2* const get_vertices();
     inline Matrix2 get_transform() {return transform;}
+    inline float get_elasiticy() const {return m_elasticity;}
+    inline bool get_collision_indicate() const {return b_collsion;}
+    inline bool get_gravity_indicate() const {return b_gravity;}
+    inline Vec2 get_acceleration() const {return m_acceleration;}
+
+
 
     inline void set_velocity(Vec2 velocity) {m_velocity = velocity;}
     inline void set_position(Vec2 position) {m_position = position; }
     inline void set_mass(float mass) {m_mass = mass;}
+    inline void set_elasticity(float elasticity) {m_elasticity = elasticity;} 
     void set_rotate(float angle);
+    inline void set_collision_indicate(bool turn) {b_collsion = turn;}
+    inline void set_gravity_indicate(bool turn) {b_gravity = turn;}
+    inline void set_acceleration(Vec2 acceleration) {m_acceleration = acceleration;} 
 
     void update(float dt);
 private:
@@ -37,13 +47,18 @@ private:
     float m_mass;
     Vec2 m_position;
     Vec2 m_velocity;
+    Vec2 m_acceleration = {0, 500.f};
     float angle;
-
+    float m_agle_speed;
+    float m_elasticity = 1;
+    float m_friction;
 
     Vec2 n1 = {1, 0};
     Vec2 n2 = {0, 1};
     Matrix2 transform;
     
+    bool b_collsion;
+    bool b_gravity;
 
     Vec2 vertices[4];
 

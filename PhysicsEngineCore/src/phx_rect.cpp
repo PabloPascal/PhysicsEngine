@@ -10,8 +10,8 @@ Rect::Rect() :
 m_width(0), 
 m_height(0), 
 m_mass(0), 
-m_position{0,0}, 
-m_velocity{0,0}
+b_collsion(false),
+b_gravity(false)
 {
     for(short i = 0; i < 4; i++)
         vertices[i] = Vec2(0,0);
@@ -21,7 +21,9 @@ m_velocity{0,0}
 
 Rect::Rect(Vec2 position, Vec2 size, float mass) : 
 m_position(position), m_width(size.x), m_height(size.y),
-m_mass(mass), m_velocity{0,0}
+m_mass(mass), 
+b_collsion(false),
+b_gravity(false)
 {
     Vec2 dir1(m_width/2, m_height/2);
     Vec2 dir2(m_width/2, -m_height/2);
@@ -38,7 +40,8 @@ m_width(size.x),
 m_height(size.y), 
 m_mass(0), 
 m_position(position), 
-m_velocity{0,0}
+b_collsion(false),
+b_gravity(false)
 {
 
 }
@@ -63,6 +66,7 @@ void Rect::set_rotate(float rad){
 
 void Rect::update(float dt){
 
+    m_velocity = m_velocity + m_acceleration * dt;
     m_position = m_position + m_velocity * dt;
 
 }

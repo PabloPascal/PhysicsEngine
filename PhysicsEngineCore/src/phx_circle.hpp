@@ -39,6 +39,11 @@ private:
     Vec2 m_center;
     float m_radius;
     float m_mass;
+
+    float m_inertia_area;
+    float m_inertia_disk;
+    float m_inertia_sphrer;
+    
     float m_elasticity;
     Vec2 m_velocity;
     Vec2 m_acceleration;

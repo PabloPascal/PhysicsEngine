@@ -12,7 +12,7 @@ void drawCircle(SDL_Renderer* renderer, Phx::Circle& circle){
 
     float r = circle.get_radius();
 
-    SDL_SetRenderDrawColor(renderer, 150, 150, 0, 1);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
 
     for(float i = 0; i < 2*r; i++){
         for(float j = 0; j < 2*r; j++){
@@ -62,7 +62,7 @@ void drawRect(SDL_Renderer* renderer, Phx::Rect& rect){
 
 
 
-void drawDebugLine(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
+void drawDebug(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
 {
     float min_dist = std::numeric_limits<float>::max();
     Phx::Vec2 vert;
@@ -79,18 +79,29 @@ void drawDebugLine(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
             }
     }
 
+    float penetrate;
+    Phx::Vec2 n;
+    Phx::Vec2 cp;
+
+    if(Phx::CircleRectCheckCollision(c, r, n, cp, penetrate))
+    {
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 1);
+        Phx::Circle point(cp, 5);
+        drawCircle(renderer, point);
+        
+    }
 
     Phx::Vec2 project_vec1 =  r.get_normal1() * -Phx::dot(c.get_position() - vert, r.get_normal1()); 
     Phx::Vec2 project_vec2 =  r.get_normal2() * -Phx::dot(c.get_position() - vert, r.get_normal2()); 
 
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 1);
     SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec1.x, center.y + project_vec1.y);
     SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec2.x, center.y + project_vec2.y);
 
     SDL_RenderDrawLine(renderer, vert.x, vert.y, center.x, center.y);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
 
-
+   //std::cout << "is inside = " << Phx::checkPointInsidePolygon(c.get_position(), r) << std::endl;
 }
 
 
@@ -203,18 +214,21 @@ int main(){
     //world.add_circle(&circle3);
 
     std::shared_ptr<Phx::Rect> rect0
-    = std::make_shared<Phx::Rect>(Phx::Vec2(644, 392), Phx::Vec2(200,200), 20.f);   
+    = std::make_shared<Phx::Rect>(Phx::Vec2(644, 392), Phx::Vec2(200,200), 50.f);   
     rect0->set_velocity({0,0});
+    rect0->set_elasticity(0.5);
+    rect0->set_collision_indicate(true);
+    //rect0->set_collision_indicate(false);
     
     std::shared_ptr<Phx::Rect> rect1
     = std::make_shared<Phx::Rect>(Phx::Vec2(200, 200),Phx::Vec2(200,200), 20.f);   
     rect1->set_velocity({0,0});
-
+    rect1->set_acceleration({0,0});
+    rect1->set_collision_indicate(true);
 
     world.add_rect(rect0);
     world.add_rect(rect1);
 
-    int count = 0;
 
     while(!quit){
 
@@ -249,6 +263,7 @@ int main(){
                     std::shared_ptr<Phx::Rect> rect
                      = std::make_shared<Phx::Rect>(Phx::Vec2(event.button.x, event.button.y),Phx::Vec2(50,50), 20);   
                     rect->set_velocity({0,0});
+                    rect->set_elasticity(0.6);
 
                     world.add_rect(rect);
                     
@@ -258,12 +273,13 @@ int main(){
             
         }
 
+        
+
         const Uint8* keyState = SDL_GetKeyboardState(NULL);
         handleInput(keyState);
         rect0->set_velocity({velocityX, velocityY});
         
 
-        count++;
 
         rect0->set_rotate(rad*deltaTime);
 
@@ -291,7 +307,9 @@ int main(){
         }
 
         
-        drawDebugLine(renderer, *rect0, *circle1);
+        drawDebug(renderer, *rect0, *circle1);
+
+        
 
         SDL_RenderPresent(renderer);
 

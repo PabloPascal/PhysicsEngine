@@ -52,13 +52,15 @@ void PhysicsWorld::update(float dt){
     {
         for(auto r : rectangles)
         {
-            CircleVsRectCollsion(*c, *r);
+            if(c->get_collision_indicate() && r->get_collision_indicate())
+                CircleVsRectCollsion(*c, *r);
         }
     }
 
     for(auto r : rectangles)
     {
         r->update(dt);
+        boundaryCollision(*r, m_border);
     }
 
 
@@ -66,7 +68,8 @@ void PhysicsWorld::update(float dt){
     {
         for(int j = i + 1; j < rectangles.size(); j++)
         {
-            solveAABBCollision(*rectangles[i], *rectangles[j]);
+            if(rectangles[i]->get_collision_indicate() && rectangles[j]->get_collision_indicate())
+                resolveCollisionSATrects(*rectangles[i], *rectangles[j]);
         }
     }
 

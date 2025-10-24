@@ -2,7 +2,7 @@
 #include "phx_matrix.hpp"
 #include <iostream>
 #include <algorithm>
-
+#include <numeric>
 
 namespace Phx{
 
@@ -185,7 +185,7 @@ bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate)
 }
 
 
-bool SATcheckCollision(Rect& r1, Rect& r2, float& diff)
+bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, float& penetrate)
 {
 
     Vec2 allAxis[4] = {r1.get_normal1(), r1.get_normal2(), r2.get_normal1(), r2.get_normal2()};
@@ -204,6 +204,8 @@ bool SATcheckCollision(Rect& r1, Rect& r2, float& diff)
         r2.get_vertices()[3]};
 
 
+    penetrate = std::numeric_limits<float>::max();
+    
     for(auto axis : allAxis)
     {
         float min1, max1, min2, max2;
@@ -211,15 +213,65 @@ bool SATcheckCollision(Rect& r1, Rect& r2, float& diff)
         FindProjection(axis, min1, max1, r1_vertices);
         FindProjection(axis, min2, max2, r2_vertices);
 
+        float overlap = std::min(max1, max2) - std::max(min1, min2);
+        
+
         if(max1 < min2 || max2 < min1){
-            diff = 0;
+            penetrate = 0;
             return false;
         }
 
-        diff = std::abs(min1 - min2);
+        if(overlap < penetrate)
+        {
+            penetrate = overlap;
+            normal = axis;
+        }
 
     }
 
+    Vec2 center_dir = (r2.get_position() - r1.get_position()).normalize();
+    
+    std::vector<Vec2> vertex_inside;
+
+    for(auto vert : r1_vertices)
+    {
+        if(checkPointInsidePolygon(vert, r2))
+        {
+            vertex_inside.push_back(vert);
+        }
+    }
+
+    for(auto vert : r2_vertices)
+    {
+        if(checkPointInsidePolygon(vert, r1))
+        {
+            vertex_inside.push_back(vert);
+        }
+    }
+
+    Vec2 sum;
+
+    for(auto vert : vertex_inside)
+    {
+        sum = sum + vert;
+    }
+
+    if(!vertex_inside.empty())
+        sum = sum / vertex_inside.size();
+
+    // std::cout << "sum_x = " <<  sum.x << std::endl;
+    // std::cout << "sum_y = " << sum.y << std::endl;
+
+    contact_point = sum;
+
+    // std::cout << "cp_x = " << contact_point.x << std::endl;
+    // std::cout << "cp_y = " << contact_point.y << std::endl;
+
+
+    if(dot(center_dir, normal) > 0)
+    {
+        normal = -1 * normal;
+    }
 
     return true;
 
@@ -287,7 +339,7 @@ void CircleVsRectCollsion(Circle& circle, Rect& rect)
 
 
 
-bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contactPoint, float& penetration)
+bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contact_point, float& penetration)
 {
 
     Vec2 center = circle.get_position();
@@ -321,7 +373,7 @@ bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& co
     //inverse matrix for ortogonal matrix is transpone matrix
     normal = transform * local_norm; 
 
-    contactPoint = rect.get_position() + transpose(rect.get_transform()) * closestPoint;
+    contact_point = rect.get_position() + transform * closestPoint;
 
     if(dist <= r * r)
         return true;
@@ -329,6 +381,125 @@ bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& co
         return false;
 }
 
+
+
+void resolveCollisionSATrects(Rect& r1, Rect& r2)
+{
+
+    Vec2 n;
+    float depth;
+    Vec2 contact_point;
+    if(SATcheckCollision(r1, r2, n, contact_point, depth))
+    {   
+
+        Vec2 v1 = r1.get_velocity();
+        Vec2 v2 = r2.get_velocity();
+
+        float m1 = r1.get_mass();
+        float m2 = r2.get_mass();
+
+        if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
+
+        float Mass1 = 2 * m2 / (m1 + m2);
+        float Mass2 = 2 * m1 / (m1 + m2);
+
+        float j = -(1 + r1.get_elasiticy() * r2.get_elasiticy() ) * dot(v1 - v2, n) / (1/m1 + 1/m2);
+
+
+        Vec2 v1_new = v1 + n * (j / m1);
+        Vec2 v2_new = v2 - n * (j / m2);
+
+        r1.set_velocity( v1_new );
+        r2.set_velocity( v2_new );
+
+        r1.set_position(r1.get_position() + depth * n);
+        r2.set_position(r2.get_position() - depth * n);
+
+
+
+    }
+
+
+}
+
+
+void boundaryCollision(Rect& r, const Vec2 border)
+{
+    Vec2 n1(1,0);
+    Vec2 n2(0,1);
+
+    Vec2 center = r.get_position();
+    float w = r.get_size().x;
+    float h = r.get_size().y;
+
+    std::vector<Vec2> vertices = {
+        r.get_vertices()[0],
+        r.get_vertices()[1],
+        r.get_vertices()[2],
+        r.get_vertices()[3]
+    };
+
+
+    float minX, maxX, minY, maxY;
+    FindProjection(n1, minX, maxX, vertices);
+    FindProjection(n2, minY, maxY, vertices);
+
+
+    float depth = 0;
+    if(minX < 0)
+    {
+        r.set_velocity({0,0});
+        depth = minX;
+        r.set_position(center + Vec2(-depth, 0));
+    }
+    if(maxX > border.x)
+    {
+        r.set_velocity({0,0});
+        depth = maxX - border.x;
+        r.set_position(center + Vec2(-depth, 0));
+    }
+    if(minY < 0)
+    {
+        r.set_velocity({0,0});
+        depth = minY;
+        r.set_position(center + Vec2(0, -depth));
+    }
+    if(maxY > border.y)
+    {
+        r.set_velocity({ r.get_velocity().x, -r.get_velocity().y * r.get_elasiticy() });
+        depth = maxY - border.y;
+        r.set_position(center + Vec2(0, -depth));
+    }
+
+}
+
+
+
+bool checkPointInsidePolygon(Vec2 point, Rect& rect)
+{
+    
+    Vec2 n1 = {1, 0};
+    Vec2 n2 = {0, 1};
+
+    std::vector<Vec2> vertices = {
+        rect.get_vertices()[0],
+        rect.get_vertices()[1],
+        rect.get_vertices()[2],
+        rect.get_vertices()[3]
+    };
+
+    float minX, maxX, minY, maxY;
+    FindProjection(n1, minX, maxX, vertices);
+    FindProjection(n2, minY, maxY, vertices);
+
+    if(minX < point.x && maxX > point.x){
+        if(minY < point.y && maxY > point.y) return true;
+    }
+
+
+    return false;
+
+}
 
 
 
