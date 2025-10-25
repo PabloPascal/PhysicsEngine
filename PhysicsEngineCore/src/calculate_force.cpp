@@ -5,10 +5,9 @@
 namespace Phx{
 
 
-void ForceGravity(Circle& c1, Circle& c2)
+void ForceSolver::ForceGravity(Circle& c1, Circle& c2)
  {
-
-        constexpr float Gravity = 1000;
+        const float m_Gravity = 1000;
 
         float m1 = c1.get_mass();
         float m2 = c2.get_mass();
@@ -17,7 +16,7 @@ void ForceGravity(Circle& c1, Circle& c2)
 
         Vec2 dir_12 = c1.get_position() - c2.get_position();
 
-        Vec2 F12 = dir_12 * (Gravity * m1 * m2 / (d * d)) / length(dir_12);
+        Vec2 F12 = dir_12 * (m_Gravity * m1 * m2 / (d * d)) / length(dir_12);
 
         Vec2 u1_prev = c1.get_velocity();
         Vec2 u2_prev = c2.get_velocity();
@@ -30,7 +29,7 @@ void ForceGravity(Circle& c1, Circle& c2)
 
 }
 
-void FallGravity(Circle &c, float gravity,  float dt)
+void ForceSolver::FallGravity(Circle &c, float gravity,  float dt)
 {
         float vx = c.get_velocity().x;
         float vy = c.get_velocity().y;

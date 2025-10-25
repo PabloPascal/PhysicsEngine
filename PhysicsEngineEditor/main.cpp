@@ -83,7 +83,7 @@ void drawDebug(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
     Phx::Vec2 n;
     Phx::Vec2 cp;
 
-    if(Phx::CircleRectCheckCollision(c, r, n, cp, penetrate))
+    if(Phx::CollisionSolver::CircleRectCheckCollision(c, r, n, cp, penetrate))
     {
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 1);
         Phx::Circle point(cp, 5);
@@ -183,35 +183,39 @@ int main(){
     auto previousTime = std::chrono::high_resolution_clock::now();
     float deltaTime = 0.0f;
 
-    Phx::Circle *circle1 = new Phx::Circle(540, 510, 50);   
+    Phx::Circle *circle1 = new Phx::Circle(540, 510, 30);   
     circle1->set_velocity({0,0});
     circle1->set_elasticity(0.8);
-    circle1->set_mass(20);
+    circle1->set_mass(155);
     circle1->set_move_on(true);
     //circle1->set_gravity_on(true);
-    circle1->set_collision_on(true);
+    circle1->set_collision_on(false);
+    circle1->set_force_gravity_on(true);
+    
 
-    Phx::Circle* circle2 = new Phx::Circle(x, 200, 50);   
+    Phx::Circle* circle2 = new Phx::Circle(x+200, 200, 15);   
     circle2->set_velocity({0,0});
     circle2->set_elasticity(0.5);
     circle2->set_mass(30);
     circle2->set_move_on(true);
     //circle2.set_gravity_on(true);
-    circle2->set_collision_on(true);
+    circle2->set_collision_on(false);
+    circle2->set_force_gravity_on(true);
 
-    Phx::Circle* circle3 = new Phx::Circle(x + 5, y, 50);   
+    Phx::Circle* circle3 = new Phx::Circle(x - 200, y, 20);   
     circle3->set_velocity({0,0});
     circle3->set_elasticity(0.5);
-    circle3->set_mass(30);
+    circle3->set_mass(80);
     circle3->set_move_on(true);
+    circle3->set_force_gravity_on(true);
     //circle3.set_gravity_on(true);
-    circle3->set_collision_on(true);
+    //circle3->set_collision_on(true);
 
     Phx::PhysicsWorld world({WIDTH, HEIGHT});
-    //world.generate_circles(700);
-    //world.add_circle(circle1);
-    //world.add_circle(&circle2);
-    //world.add_circle(&circle3);
+    //world.generate_circles(50);
+    world.add_circle(circle1);
+    world.add_circle(circle2);
+    world.add_circle(circle3);
 
     std::shared_ptr<Phx::Rect> rect0
     = std::make_shared<Phx::Rect>(Phx::Vec2(500, 392), Phx::Vec2(50,50), 20.f);   
@@ -238,9 +242,10 @@ int main(){
     rect2->set_acceleration({0,0});
     rect2->set_collision_indicate(true);
     rect2->set_rotate(30 * 3.1415f / 180.f);
-    world.add_rect(rect0);
-    world.add_rect(rect1);
-    world.add_rect(rect2);
+   
+    //world.add_rect(rect0);
+    //world.add_rect(rect1);
+    // world.add_rect(rect2);
 
 
     while(!quit){
@@ -264,7 +269,9 @@ int main(){
                     circle->set_mass(50);
                     circle->set_acceleration({0, 500});
                     circle->set_gravity_on(true);
+                    circle->set_move_on(true);
                     circle->set_collision_on(true);
+                    circle->set_bound_collision(true);
                     world.add_circle(circle);
                     
                 }
@@ -312,7 +319,7 @@ int main(){
         }
         Phx::Vec2 n;
         float d;
-        if(Phx::AABBcheckCollision(*rect0, *rect1, n, d)){
+        if(Phx::CollisionSolver::AABBcheckCollision(*rect0, *rect1, n, d)){
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         }else{
             SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);

@@ -3,101 +3,101 @@
 #include <iostream>
 #include <algorithm>
 #include <numeric>
+#include <printf.h>
 
 namespace Phx{
 
 
-bool checkBallsCollision(const Circle& c1, const Circle& c2)
+bool CollisionSolver::checkBallsCollision(const Circle& circleA, const Circle& circleB)
 {
-        float r1 = c1.get_radius();
-        float r2 = c2.get_radius();
+        float r1 = circleA.get_radius();
+        float r2 = circleB.get_radius();
 
 
-        if (length(c1.get_position() - c2.get_position()) < r1 + r2) {
+        if (length(circleA.get_position() - circleB.get_position()) < r1 + r2) {
             return true;
         }
 
         return false;
 }
 
-void resolveCircleCollision(Circle& circle1, Circle& circle2) 
+void CollisionSolver::resolveCircleCollision(Circle& circleA, Circle& circleB) 
 {
-        Vec2 x1 = circle1.get_position();
-        Vec2 x2 = circle2.get_position();
+        Vec2 xA = circleA.get_position();
+        Vec2 xB = circleB.get_position();
 
-        Vec2 normal = (x2 - x1) / length(x2-x1); 
+        Vec2 normal = (xB - xA) / length(xB-xA); 
 
-        Vec2 v1 = circle1.get_velocity();
-        Vec2 v2 = circle2.get_velocity();
+        Vec2 velocityA = circleA.get_velocity();
+        Vec2 velocityB = circleB.get_velocity();
 
-        float m1 = circle1.get_mass();
-        float m2 = circle2.get_mass();
+        float massA = circleA.get_mass();
+        float massB = circleB.get_mass();
 
-        if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
+        if(massA == 0 || massB == 0) std::cout << "zero mass!!!" << std::endl;
 
-        float Mass1 = 2 * m2 / (m1 + m2);
-        float Mass2 = 2 * m1 / (m1 + m2);
+        float Mass1 = 2 * massB / (massA + massB);
+        float Mass2 = 2 * massA / (massA + massB);
 
-        float j = -(1 + circle1.get_elasticity() * circle2.get_elasticity() ) * dot(v1 - v2, normal) / (1/m1 + 1/m2);
+        float j = -(1 + circleA.get_elasticity() * circleB.get_elasticity() ) * dot(velocityA - velocityB, normal) 
+        / (1/massA + 1/massB);
 
 
-        Vec2 v1_new = v1 + normal * (j / m1);
-        Vec2 v2_new = v2 - normal * (j / m2);
+        Vec2 vA_new = velocityA + normal * (j / massA);
+        Vec2 vB_new = velocityB - normal * (j / massB);
 
-        circle1.set_velocity( v1_new );
-        circle2.set_velocity( v2_new );
+        circleA.set_velocity( vA_new );
+        circleB.set_velocity( vB_new );
 }
 
 
-void separateBalls(Circle& c1, Circle& c2) 
+void CollisionSolver::separateBalls(Circle& circleA, Circle& circleB) 
 {
 
-    float totalMass = c1.get_mass() + c2.get_mass();
+    float totalMass = circleA.get_mass() + circleB.get_mass();
 
-    float ratioA = c1.get_mass() / totalMass;
-    float ratioB = c2.get_mass() / totalMass;
+    float ratioA = circleA.get_mass() / totalMass;
+    float ratioB = circleB.get_mass() / totalMass;
     
 
-    float angle = std::atan2(c1.get_position().y - c2.get_position().y,
-                c1.get_position().x - c2.get_position().x);
+    float angle = std::atan2(circleA.get_position().y - circleB.get_position().y,
+                circleA.get_position().x - circleB.get_position().x);
 
-    float r1 = c1.get_radius();
-    float r2 = c2.get_radius();
+    float radiusA = circleA.get_radius();
+    float radiusB = circleA.get_radius();
 
     float slop = 0.01;
-    float diffDist = r1 + r2 - length(c1.get_position() - c2.get_position()) - slop;
+    float diffDist = radiusA + radiusB - length(circleA.get_position() - circleB.get_position()) - slop;
 
     diffDist *= 0.5;
 
     Vec2 dir = { std::cos(angle), std::sin(angle) };
         
-    Vec2 dir1 = dir + c1.get_velocity();
-    Vec2 dir2 = dir*(-1) + c2.get_velocity();
+    Vec2 dir1 = dir + circleA.get_velocity();
+    Vec2 dir2 = dir*(-1) + circleB.get_velocity();
 
-    Vec2 delta1 = c1.get_position() + dir * diffDist * ratioA;
-    Vec2 delta2 = c2.get_position() + dir * -diffDist * ratioB;
+    Vec2 delta1 = circleA.get_position() + dir * diffDist * ratioA;
+    Vec2 delta2 = circleB.get_position() + dir * -diffDist * ratioB;
 
-    c1.set_position(delta1);
-    c2.set_position(delta2);
+    circleA.set_position(delta1);
+    circleB.set_position(delta2);
 
 
 }
 
 
-void separateCircleWalls(Circle& c, Vec2 normal, float diff) {
+void CollisionSolver::separateCircleWalls(Circle& c, Vec2 normal, float diff) {
 
-        //diff *= 0.5;
+    Vec2 delta = c.get_position() + normal * diff;
 
-        Vec2 delta = c.get_position() + normal * diff;
-
-        c.set_position(delta);
+    c.set_position(delta);
 
 }
 
 
 
 
-void boundaryCollision(Circle& c, const Vec2 border)
+void CollisionSolver::boundaryCollision(Circle& c, const Vec2 border)
 {
 
         float r = c.get_radius();
@@ -138,30 +138,30 @@ void boundaryCollision(Circle& c, const Vec2 border)
 
 }
 
-bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate)
+bool CollisionSolver::AABBcheckCollision(Rect& rectA, Rect& rectB, Vec2& normal, float& penetrate)
 {
-    float r1_x_min = r1.get_position().x - r1.get_size().x / 2;
-    float r1_x_max = r1.get_position().x + r1.get_size().x / 2;
+    float Ax_min = rectA.get_position().x - rectA.get_size().x / 2;
+    float Ax_max = rectA.get_position().x + rectA.get_size().x / 2;
  
-    float r1_y_min = r1.get_position().y - r1.get_size().y / 2;
-    float r1_y_max = r1.get_position().y + r1.get_size().y / 2;
+    float Ay_min = rectA.get_position().y - rectA.get_size().y / 2;
+    float Ay_max = rectA.get_position().y + rectA.get_size().y / 2;
 
 
-    float r2_x_min = r2.get_position().x - r2.get_size().x / 2;
-    float r2_x_max = r2.get_position().x + r2.get_size().x / 2;
+    float Bx_min = rectB.get_position().x - rectB.get_size().x / 2;
+    float Bx_max = rectB.get_position().x + rectB.get_size().x / 2;
  
-    float r2_y_min = r2.get_position().y - r2.get_size().y / 2;
-    float r2_y_max = r2.get_position().y + r2.get_size().y / 2;
+    float By_min = rectB.get_position().y - rectB.get_size().y / 2;
+    float By_max = rectB.get_position().y + rectB.get_size().y / 2;
 
     
     
-    float overlap_right = r1_x_max - r2_x_min;  //n1
-    float overlap_left = r2_x_max - r1_x_min;   //-n1
-    float overlap_top = r1_y_max - r2_y_min;    //n2
-    float overlap_bottom = r2_y_max - r1_y_min;  //-n2
+    float overlap_right = Ax_max - Bx_min;  //n1
+    float overlap_left = Bx_max - Ax_min;   //-n1
+    float overlap_top = Ay_max - By_min;    //n2
+    float overlap_bottom = By_max - Ay_min;  //-n2
     
-    Vec2 n1 = r1.get_normal1();
-    Vec2 n2 = r2.get_normal2();
+    Vec2 n1 = rectA.get_normal1();
+    Vec2 n2 = rectA.get_normal2();
 
     float min_overlap = std::min({overlap_left, overlap_right, overlap_bottom, overlap_top});
 
@@ -174,8 +174,8 @@ bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate)
 
 
 
-    if(r1_x_min < r2_x_max && r2_x_min < r1_x_max){
-        if(r1_y_min < r2_y_max && r2_y_min < r1_y_max)
+    if(Ax_min < Bx_max && Bx_min < Ax_max){
+        if(Ay_min < By_max && By_min < Ay_max)
             return true;
     }
 
@@ -185,23 +185,24 @@ bool AABBcheckCollision(Rect& r1, Rect& r2, Vec2& normal, float& penetrate)
 }
 
 
-bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, float& penetrate)
+bool CollisionSolver::SATcheckCollision(Rect& rectA, Rect& rectB, Vec2& normal, Vec2& contact_point, float& penetrate)
 {
 
-    Vec2 allAxis[4] = {r1.get_normal1(), r1.get_normal2(), r2.get_normal1(), r2.get_normal2()};
+    Vec2 allAxis[4] = {rectA.get_normal1(), rectA.get_normal2(), rectB.get_normal1(), rectB.get_normal2()};
 
-    std::vector<Vec2> r1_vertices = {
-        r1.get_vertices()[0],
-        r1.get_vertices()[1],
-        r1.get_vertices()[2],
-        r1.get_vertices()[3]};
+    std::vector<Vec2> Avertices = {
+        rectA.get_vertices()[0],
+        rectA.get_vertices()[1],
+        rectA.get_vertices()[2],
+        rectA.get_vertices()[3]};
 
 
-    std::vector<Vec2> r2_vertices = {
-        r2.get_vertices()[0],
-        r2.get_vertices()[1],
-        r2.get_vertices()[2],
-        r2.get_vertices()[3]};
+    std::vector<Vec2> Bvertices = {
+        rectB.get_vertices()[0],
+        rectB.get_vertices()[1],
+        rectB.get_vertices()[2],
+        rectB.get_vertices()[3]};
+
 
 
     penetrate = std::numeric_limits<float>::max();
@@ -210,8 +211,8 @@ bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, fl
     {
         float min1, max1, min2, max2;
         
-        FindProjection(axis, min1, max1, r1_vertices);
-        FindProjection(axis, min2, max2, r2_vertices);
+        FindProjection(axis, min1, max1, Avertices);
+        FindProjection(axis, min2, max2, Bvertices);
 
         float overlap = std::min(max1, max2) - std::max(min1, min2);
         
@@ -229,21 +230,21 @@ bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, fl
 
     }
 
-    Vec2 center_dir = (r2.get_position() - r1.get_position()).normalize();
+    Vec2 center_dir = (rectB.get_position() - rectA.get_position()).normalize();
     
-    std::vector<Vec2> vertex_inside;
+   std::vector<Vec2> vertex_inside;
 
-    for(auto vert : r1_vertices)
+    for(auto vert : Avertices)
     {
-        if(checkPointInsidePolygon(vert, r2))
+        if(checkPointInsidePolygon(vert, rectB))
         {
             vertex_inside.push_back(vert);
         }
     }
 
-    for(auto vert : r2_vertices)
+    for(auto vert : Bvertices)
     {
-        if(checkPointInsidePolygon(vert, r1))
+        if(checkPointInsidePolygon(vert, rectA))
         {
             vertex_inside.push_back(vert);
         }
@@ -259,14 +260,7 @@ bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, fl
     if(!vertex_inside.empty())
         sum = sum / vertex_inside.size();
 
-    // std::cout << "sum_x = " <<  sum.x << std::endl;
-    // std::cout << "sum_y = " << sum.y << std::endl;
-
     contact_point = sum;
-
-    // std::cout << "cp_x = " << contact_point.x << std::endl;
-    // std::cout << "cp_y = " << contact_point.y << std::endl;
-
 
     if(dot(center_dir, normal) > 0)
     {
@@ -279,7 +273,45 @@ bool SATcheckCollision(Rect& r1, Rect& r2, Vec2& normal, Vec2& contact_point, fl
 
 
 
-void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>& vertices)
+Vec2 CollisionSolver::FindContactPoint(Rect& rectA, Rect& rectB)
+{
+
+    std::vector<Vec2> vertex_inside;
+
+    for(short i = 0; i < 4; i++)
+    {
+        if(checkPointInsidePolygon(rectA.get_vertices()[i], rectB));
+        {
+            vertex_inside.push_back(rectA.get_vertices()[i]);
+        }
+    }
+
+    for(short i = 0; i < 4; i++)
+    {
+        if(checkPointInsidePolygon(rectB.get_vertices()[i], rectA));
+        {
+            vertex_inside.push_back(rectB.get_vertices()[i]);
+        }
+    }
+
+    Vec2 sum;
+
+    for(auto vert : vertex_inside)
+    {
+        sum = sum + vert;
+    }
+
+    if(!vertex_inside.empty())
+        sum = sum / vertex_inside.size();
+
+
+
+    return sum;
+
+}
+
+
+void CollisionSolver::FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>& vertices)
 {
     minProj = maxProj = dot(Axis, vertices[0]);
 
@@ -295,17 +327,17 @@ void FindProjection(Vec2 Axis, float& minProj, float& maxProj, std::vector<Vec2>
 
 
 
-void solveAABBCollision(Rect& r1, Rect& r2)
+void CollisionSolver::resolveAABBCollision(Rect& rectA, Rect& rectB)
 {
     Vec2 n;
     float diff = 0;
-    if(AABBcheckCollision(r1, r2, n, diff)){
+    if(AABBcheckCollision(rectA, rectB, n, diff)){
 
-        Vec2 v1 = r1.get_velocity();
-        Vec2 v2 = r2.get_velocity();
+        Vec2 v1 = rectA.get_velocity();
+        Vec2 v2 = rectB.get_velocity();
 
-        r1.set_position(r1.get_position() + n * diff  );
-        r2.set_position(r2.get_position() + n * -diff  );
+        rectA.set_position(rectA.get_position() + n * diff  );
+        rectB.set_position(rectB.get_position() + n * -diff  );
 
 
     }
@@ -313,7 +345,7 @@ void solveAABBCollision(Rect& r1, Rect& r2)
 }
 
 
-void resolveCircleRectCollsion(Circle& circle, Rect& rect)
+void CollisionSolver::resolveCircleRectCollsion(Circle& circle, Rect& rect)
 {
     Vec2 n;
     float depth = 0;
@@ -388,7 +420,7 @@ void resolveCircleRectCollsion(Circle& circle, Rect& rect)
 
 
 
-bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contact_point, float& penetration)
+bool CollisionSolver::CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& contact_point, float& penetration)
 {
 
     Vec2 center = circle.get_position();
@@ -432,26 +464,26 @@ bool CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2& normal, Vec2& co
 
 
 
-void resolveRectsCollision(Rect& r1, Rect& r2)
+void CollisionSolver::resolveRectsCollision(Rect& rectA, Rect& rectB)
 {
 
     Vec2 n;
     float depth;
     Vec2 contact_point;
 
-    if(SATcheckCollision(r1, r2, n, contact_point, depth))
+    if(SATcheckCollision(rectA, rectB, n, contact_point, depth))
     {   
 
-        Vec2 center_mass1 = r1.get_position();
-        Vec2 center_mass2 = r2.get_position();
-        Vec2 v1 = r1.get_velocity();
-        Vec2 v2 = r2.get_velocity();
-        float m1 = r1.get_mass();
-        float m2 = r2.get_mass();
-        float w1 = r1.get_angle_speed();
-        float w2 = r2.get_angle_speed();
-        float I1 = r1.get_inertia();
-        float I2 = r2.get_inertia();
+        Vec2 center_mass1 = rectA.get_position();
+        Vec2 center_mass2 = rectB.get_position();
+        Vec2 v1 = rectA.get_velocity();
+        Vec2 v2 = rectB.get_velocity();
+        float m1 = rectA.get_mass();
+        float m2 = rectB.get_mass();
+        float w1 = rectA.get_angle_speed();
+        float w2 = rectB.get_angle_speed();
+        float I1 = rectA.get_inertia();
+        float I2 = rectB.get_inertia();
 
         Vec2 lever1 = contact_point - center_mass1;
         Vec2 lever2 = contact_point - center_mass2;  
@@ -467,8 +499,8 @@ void resolveRectsCollision(Rect& r1, Rect& r2)
         float clamp = std::max(depth - slop, 0.f);
         Vec2 correction = (clamp * percent) / (inv_m1 + inv_m2) * n; 
 
-        r1.set_position(r1.get_position() + correction * inv_m1);
-        r2.set_position(r2.get_position() - correction * inv_m2);
+        rectA.set_position(rectA.get_position() + correction * inv_m1);
+        rectB.set_position(rectB.get_position() - correction * inv_m2);
 
         Vec2 crossVW1( -w1 * lever1.y, w1 * lever1.x);
         Vec2 crossVW2( -w2 * lever2.y, w2 * lever2.x); 
@@ -484,7 +516,7 @@ void resolveRectsCollision(Rect& r1, Rect& r2)
         float perp_l2 = cross2d(lever2, n);
 
         float mass_eff =  1 / (inv_m1 + inv_m2 + (perp_l1 * perp_l1) / I1 +  (perp_l2 * perp_l2) / I2 );
-        float elasticity = std::min(r1.get_elasiticy(), r2.get_elasiticy());
+        float elasticity = std::min(rectA.get_elasiticy(), rectB.get_elasiticy());
 
         float normal_impulse = -(1 + elasticity) * V_n * mass_eff;
         Vec2 impulse = normal_impulse * n;
@@ -496,11 +528,11 @@ void resolveRectsCollision(Rect& r1, Rect& r2)
         w2 = w2 - cross2d(lever2, impulse) / I2; 
 
 
-        r1.set_velocity( v1 );
-        r2.set_velocity( v2 );
+        rectA.set_velocity( v1 );
+        rectB.set_velocity( v2 );
 
-        r1.set_angle_speed(w1);
-        r2.set_angle_speed(w2);
+        rectA.set_angle_speed(w1);
+        rectB.set_angle_speed(w2);
 
 
 
@@ -510,7 +542,7 @@ void resolveRectsCollision(Rect& r1, Rect& r2)
 }
 
 
-void boundaryCollision(Rect& r, const Vec2 border)
+void CollisionSolver::boundaryCollision(Rect& r, const Vec2 border)
 {
     Vec2 n1(1,0);
     Vec2 n2(0,1);
@@ -562,7 +594,7 @@ void boundaryCollision(Rect& r, const Vec2 border)
 
 
 
-bool checkPointInsidePolygon(Vec2 point, Rect& rect)
+bool CollisionSolver::checkPointInsidePolygon(Vec2 point, Rect& rect)
 {
     
     Vec2 n1 = {1, 0};

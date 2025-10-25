@@ -99,7 +99,7 @@ void Rect::update(float dt){
 
 
 
-const Vec2* const Rect::get_vertices() 
+const Vec2* const Rect::get_vertices()
 {
     
     Vec2 dir1 = n1 * m_width / 2 + n2 * m_height / 2; 

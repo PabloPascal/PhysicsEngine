@@ -6,10 +6,15 @@
 
 namespace Phx{
 
-void ForceGravity(Circle& c1, Circle& c2);
+class ForceSolver{
+public:
 
-void FallGravity(Circle &c, float gravity,  float dt);
+    static void ForceGravity(Circle& c1, Circle& c2);
 
+    static void FallGravity(Circle &c, float gravity,  float dt);
+
+    
+};
 }
 
 #endif

@@ -18,33 +18,50 @@ PhysicsWorld::PhysicsWorld(Vec2 border){
 
 void PhysicsWorld::update(float dt){
 
-    for(auto circle : circles){
-        circle->update(dt);
-        boundaryCollision(*circle, m_border);
-    }
-
-
-    for(auto circle : circles){
-        if(circle->get_gravity_indicate()){
-            FallGravity(*circle, m_Gravity, dt);
-            Vec2 new_pos = circle->get_position() + circle->get_velocity() * dt;
-            circle->set_position(new_pos);
-            boundaryCollision(*circle, m_border);
-        }
-    }
-
-    for(size_t i = 0; i < circles.size(); i++){
-
-        if(!circles[i]->get_collision_indicate())
+    for(auto circle : circles)
+    {
+        if(!circle->get_move_indicate())
             continue;
+        
+        circle->update(dt);
 
-        for(size_t j = i+1; j < circles.size(); j++){
-            if(checkBallsCollision(*circles[i], *circles[j])){
-                separateBalls(*circles[i], *circles[j]);
-                resolveCircleCollision(*circles[i], *circles[j]);
-                
-            }
+        if(circle->get_gravity_indicate())
+        {
+            ForceSolver::FallGravity(*circle, m_Gravity, dt);
+            // Vec2 new_pos = circle->get_position() + circle->get_velocity() * dt;
+            // circle->set_position(new_pos);
         }
+        if(circle->get_bound_collision())
+        {
+            CollisionSolver::boundaryCollision(*circle, m_border);
+        }
+    }
+
+
+
+    for(size_t i = 0; i < circles.size(); i++)
+    {
+        for(size_t j = i+1; j < circles.size(); j++)
+        {
+            
+            if(circles[i]->get_collision_indicate() && circles[j]->get_collision_indicate() )
+            {
+    
+                if(CollisionSolver::checkBallsCollision(*circles[i], *circles[j]))
+                {
+                    CollisionSolver::separateBalls(*circles[i], *circles[j]);
+                    CollisionSolver::resolveCircleCollision(*circles[i], *circles[j]);
+                }
+            }
+
+            if(circles[i]->get_force_gravity_indicate() && circles[j]->get_force_gravity_indicate())
+            {
+                ForceSolver::ForceGravity(*circles[i], *circles[j]);
+            }
+
+
+        }
+
 
     }
 
@@ -53,14 +70,14 @@ void PhysicsWorld::update(float dt){
         for(auto r : rectangles)
         {
             if(c->get_collision_indicate() && r->get_collision_indicate())
-                resolveCircleRectCollsion(*c, *r);
+                CollisionSolver::resolveCircleRectCollsion(*c, *r);
         }
     }
 
     for(auto r : rectangles)
     {
         r->update(dt);
-        boundaryCollision(*r, m_border);
+        CollisionSolver::boundaryCollision(*r, m_border);
     }
 
 
@@ -69,7 +86,7 @@ void PhysicsWorld::update(float dt){
         for(int j = i + 1; j < rectangles.size(); j++)
         {
             if(rectangles[i]->get_collision_indicate() && rectangles[j]->get_collision_indicate())
-                resolveRectsCollision(*rectangles[i], *rectangles[j]);
+                CollisionSolver::resolveRectsCollision(*rectangles[i], *rectangles[j]);
         }
     }
 
@@ -114,4 +131,13 @@ void PhysicsWorld::generate_circles(size_t count){
     }
 }
 
+
+void PhysicsWorld::delete_object()
+{
+
+
+
 }
+
+
+}//namespace

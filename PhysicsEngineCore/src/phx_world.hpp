@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <functional>
+
 
 namespace Phx
 {
@@ -27,7 +29,7 @@ public:
     void add_circle(Circle* circle);
     void add_circle(std::shared_ptr<Circle> circle);
     void add_rect(std::shared_ptr<Rect> rect);
-
+    void delete_object();
 
     void generate_circles(size_t count);
     void update(float dt);
