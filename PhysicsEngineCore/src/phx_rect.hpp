@@ -31,6 +31,7 @@ public:
     inline float get_angle_speed() const {return m_angle_speed;}
     inline float get_angle_acceleration() const {return m_angle_acceleration;}
     inline float get_inertia() const {return m_inertia;}
+    inline float get_friction() {return m_friction;}
 
     inline void set_velocity(Vec2 velocity) {m_velocity = velocity;}
     inline void set_position(Vec2 position) {m_position = position; }
@@ -39,6 +40,8 @@ public:
         m_inertia = 1/12 * m_mass * (m_width * m_width + m_height * m_height);
     }
     inline void set_elasticity(float elasticity) {m_elasticity = elasticity;} 
+    inline void set_friction(float friction) {m_friction = friction;} 
+
     void set_rotate(float angle);
     inline void set_collision_indicate(bool turn) {b_collsion = turn;}
     inline void set_gravity_indicate(bool turn) {b_gravity = turn;}
