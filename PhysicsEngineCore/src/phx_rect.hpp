@@ -32,6 +32,8 @@ public:
     inline float get_angle_acceleration() const {return m_angle_acceleration;}
     inline float get_inertia() const {return m_inertia;}
     inline float get_friction() {return m_friction;}
+    bool get_static_indicate() {return b_static;}
+    bool get_rotation_indicate() {return b_rotation_apply;}
 
     inline void set_velocity(Vec2 velocity) {m_velocity = velocity;}
     inline void set_position(Vec2 position) {m_position = position; }
@@ -49,11 +51,12 @@ public:
     inline void set_angle(float angle) {m_angle = angle;}
     inline void set_angle_speed(float angle_speed) {m_angle_speed = angle_speed;}
     inline void set_angle_acceleration(float angle_acceleration) {m_angle_acceleration = angle_acceleration;}
-
-
+    void set_static(bool _static) {b_static = _static;}
+    void set_rotation_apply(bool rotation) {b_rotation_apply = rotation;}
 
     void update(float dt);
 private:
+
 
     float m_width;
     float m_height;
@@ -78,6 +81,8 @@ private:
     
     bool b_collsion;
     bool b_gravity;
+    bool b_static = true;
+    bool b_rotation_apply;
 
     Vec2 vertices[4];
 

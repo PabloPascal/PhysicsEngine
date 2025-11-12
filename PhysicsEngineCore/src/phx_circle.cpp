@@ -13,7 +13,8 @@ Circle::Circle() :
  b_collision(false),
  b_move(false),
  b_force_gravity(false),
- b_bound_collision(false)
+ b_bound_collision(false),
+ b_static(false)
 {}
 
 Circle::Circle(float pos_x, float pos_y, float radius) :
@@ -26,7 +27,9 @@ Circle::Circle(float pos_x, float pos_y, float radius) :
  b_collision(false),
  b_move(false),
  b_force_gravity(false),
- b_bound_collision(false)
+ b_bound_collision(false),
+ b_static(false)
+
 {}
 
 Circle::Circle(Phx::Vec2 position, float radius) :
@@ -40,7 +43,9 @@ Circle::Circle(Phx::Vec2 position, float radius) :
  b_collision(false),
  b_move(false),
  b_force_gravity(false),
- b_bound_collision(false)
+ b_bound_collision(false),
+  b_static(false)
+
 {}
 
 
@@ -55,7 +60,9 @@ Circle::Circle(Vec2 position, float radius, float mass) :
  b_collision(false),
  b_move(false),
  b_force_gravity(false),
- b_bound_collision(false)
+ b_bound_collision(false),
+ b_static(false)
+
 {
     m_inertia = 1/2.f * m_mass * (m_radius * m_radius);
 }

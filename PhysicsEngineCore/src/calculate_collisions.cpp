@@ -8,6 +8,9 @@
 namespace Phx{
 
 
+    constexpr float EPSILON = 1e-6f;
+
+
 bool CollisionSolver::checkBallsCollision(const Circle& circleA, const Circle& circleB)
 {
         float r1 = circleA.get_radius();
@@ -345,6 +348,77 @@ void CollisionSolver::resolveAABBCollision(Rect& rectA, Rect& rectB)
 }
 
 
+void CollisionSolver::applyCircleRectCollision(Circle& circle, Rect& rect, Vec2 normal, Vec2 contactPoint, float depth)
+{
+    Vec2 center_mass1 = rect.get_position();
+    Vec2 center_mass2 = circle.get_position();
+    Vec2 v1 = rect.get_velocity();
+    Vec2 v2 = circle.get_velocity();
+    float m1 = rect.get_mass();
+    float m2 = circle.get_mass();
+    float w1 = rect.get_angle_speed();
+    float w2 = circle.get_angle_speed();
+    float I1 = rect.get_inertia();
+    float I2 = circle.get_inertia();
+
+    Vec2 lever1 = contactPoint - center_mass1;
+    Vec2 lever2 = contactPoint - center_mass2;  
+
+    if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
+
+    float inv_m1 = 1/m1;
+    float inv_m2 = 1/m2;
+
+    float slop = 0.01;
+    float percent = 0.2;
+
+    float clamp = std::max(depth - slop, 0.f);
+    Vec2 correction = (clamp * percent) / (inv_m1 + inv_m2) * normal; 
+
+    if(!rect.get_static_indicate()){
+        rect.set_position(rect.get_position() - correction * inv_m1);
+    }
+    if(!circle.get_static_indicate()){
+        circle.set_position(circle.get_position() + correction * inv_m2);
+    }
+
+    Vec2 crossVW1( -w1 * lever1.y, w1 * lever1.x);
+    Vec2 crossVW2( -w2 * lever2.y, w2 * lever2.x); 
+
+    Vec2 Vcontact1 = v1 + crossVW1;
+    Vec2 Vcontact2 = v2 + crossVW2;
+
+    Vec2 v_rel = Vcontact1 - Vcontact2;
+
+    float V_n = dot( v_rel, normal );
+
+    float perp_l1 = cross2d(lever1, normal);
+    float perp_l2 = cross2d(lever2, normal);
+
+    float mass_eff =  1 / (inv_m1 + inv_m2 + (perp_l1 * perp_l1) / I1 +  (perp_l2 * perp_l2) / I2 );
+    float elasticity = std::min(rect.get_elasiticy(), circle.get_elasticity());
+
+    float normal_impulse = -(1 + elasticity) * V_n * mass_eff;
+    Vec2 impulse = normal_impulse * normal;
+
+    v1 = v1 + impulse / m1;
+    v2 = v2 - impulse / m2;
+
+    w1 = w1 + cross2d(lever1, impulse) / I1;
+    w2 = w2 - cross2d(lever2, impulse) / I2; 
+
+    if(!rect.get_static_indicate()){
+        rect.set_velocity( v1 );
+        rect.set_angle_speed(w1);
+    }
+    if(!circle.get_static_indicate())
+    {
+        circle.set_velocity( v2 );
+        circle.set_angle_speed(w2);
+    }
+}
+
+
 void CollisionSolver::resolveCircleRectCollsion(Circle& circle, Rect& rect)
 {
     Vec2 n;
@@ -352,65 +426,7 @@ void CollisionSolver::resolveCircleRectCollsion(Circle& circle, Rect& rect)
     Vec2 contact_point;
     if(CircleRectCheckCollision(circle, rect, n, contact_point, depth))
     {
-        Vec2 center_mass1 = rect.get_position();
-        Vec2 center_mass2 = circle.get_position();
-        Vec2 v1 = rect.get_velocity();
-        Vec2 v2 = circle.get_velocity();
-        float m1 = rect.get_mass();
-        float m2 = circle.get_mass();
-        float w1 = rect.get_angle_speed();
-        float w2 = circle.get_angle_speed();
-        float I1 = rect.get_inertia();
-        float I2 = circle.get_inertia();
-
-        Vec2 lever1 = contact_point - center_mass1;
-        Vec2 lever2 = contact_point - center_mass2;  
-
-        if(m1 == 0 || m2 == 0) std::cout << "zero mass!!!" << std::endl;
-
-        float inv_m1 = 1/m1;
-        float inv_m2 = 1/m2;
-
-        float slop = 0.01;
-        float percent = 0.2;
-
-        float clamp = std::max(depth - slop, 0.f);
-        Vec2 correction = (clamp * percent) / (inv_m1 + inv_m2) * n; 
-
-        rect.set_position(rect.get_position() - correction * inv_m1);
-        circle.set_position(circle.get_position() + correction * inv_m2);
-
-        Vec2 crossVW1( -w1 * lever1.y, w1 * lever1.x);
-        Vec2 crossVW2( -w2 * lever2.y, w2 * lever2.x); 
-
-        Vec2 Vcontact1 = v1 + crossVW1;
-        Vec2 Vcontact2 = v2 + crossVW2;
-
-        Vec2 v_rel = Vcontact1 - Vcontact2;
-
-        float V_n = dot( v_rel, n );
-
-        float perp_l1 = cross2d(lever1, n);
-        float perp_l2 = cross2d(lever2, n);
-
-        float mass_eff =  1 / (inv_m1 + inv_m2 + (perp_l1 * perp_l1) / I1 +  (perp_l2 * perp_l2) / I2 );
-        float elasticity = std::min(rect.get_elasiticy(), circle.get_elasticity());
-
-        float normal_impulse = -(1 + elasticity) * V_n * mass_eff;
-        Vec2 impulse = normal_impulse * n;
-
-        v1 = v1 + impulse / m1;
-        v2 = v2 - impulse / m2;
-
-        w1 = w1 + cross2d(lever1, impulse) / I1;
-        w2 = w2 - cross2d(lever2, impulse) / I2; 
-
-
-        rect.set_velocity( v1 );
-        circle.set_velocity( v2 );
-
-        rect.set_angle_speed(w1);
-        circle.set_angle_speed(w2);
+        applyCircleRectCollision(circle, rect, n, contact_point, depth);
         
     }
 
@@ -464,6 +480,130 @@ bool CollisionSolver::CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2&
 
 
 
+
+void CollisionSolver::applyCollisionReaction(Rect& rectA, Rect& rectB, Vec2 normal, Vec2 contactPoint, float depth)
+{
+    Vec2 center_massA = rectA.get_position();
+    Vec2 center_massB = rectB.get_position();
+    Vec2 velocityA = rectA.get_velocity();
+    Vec2 velocityB = rectB.get_velocity();
+    float massA = rectA.get_mass();
+    float massB = rectB.get_mass();
+    float angular_velocityA = rectA.get_angle_speed();
+    float angular_velocityB = rectB.get_angle_speed();
+    float InertiaA = rectA.get_inertia();
+    float InertiaB = rectB.get_inertia();
+
+    Vec2 rA = contactPoint - center_massA;
+    Vec2 rB = contactPoint - center_massB;  
+
+    if(massA == 0 || massB == 0) std::cout << "zero mass!!!" << std::endl;
+
+    float inv_mA = 1/massA;
+    float inv_mB = 1/massB;
+
+    float slop = 0.01;
+    float percent = 0.2;
+
+    float clamp = std::max(depth - slop, 0.f);
+    Vec2 correction = (clamp * percent) / (inv_mA + inv_mB) * normal; 
+    
+    if(!rectA.get_static_indicate())
+        rectA.set_position(rectA.get_position() + correction * inv_mA);
+    if(!rectB.get_static_indicate())
+        rectB.set_position(rectB.get_position() - correction * inv_mB);
+
+    Vec2 cross_VxW_A( -angular_velocityA * rA.y, angular_velocityA * rA.x);
+    Vec2 cross_VxW_B( -angular_velocityB * rB.y, angular_velocityB * rB.x); 
+
+    Vec2 VcontactA = velocityA + cross_VxW_A;
+    Vec2 VcontactB = velocityB + cross_VxW_B;
+
+    Vec2 v_relative = VcontactA - VcontactB; //param
+
+    float normal_velocity = dot( v_relative, normal );
+
+    float perp_rA = cross2d(rA, normal);
+    float perp_rB = cross2d(rB, normal);
+
+    float mass_eff =  1 / (inv_mA + inv_mB + (perp_rA * perp_rA) / InertiaA +  (perp_rB * perp_rB) / InertiaB );
+    float elasticity = std::min(rectA.get_elasiticy(), rectB.get_elasiticy());
+
+    float j_n = -(1 + elasticity) * normal_velocity * mass_eff;
+    Vec2 normal_impulse = j_n * normal;
+
+    velocityA = velocityA + (normal_impulse) * inv_mA;
+    velocityB = velocityB - (normal_impulse) * inv_mB;
+
+    angular_velocityA = angular_velocityA + cross2d(rA, normal_impulse) / InertiaA;
+    angular_velocityB = angular_velocityB - cross2d(rB, normal_impulse) / InertiaB; 
+
+
+    //calculate friction
+    cross_VxW_A = Vec2( -angular_velocityA * rA.y, angular_velocityA * rA.x);
+    cross_VxW_B = Vec2( -angular_velocityB * rB.y, angular_velocityB * rB.x);
+
+    VcontactA = velocityA + cross_VxW_A;
+    VcontactB = velocityB + cross_VxW_B;
+    v_relative = VcontactA - VcontactB;  //param
+
+    Vec2 tangent = ( v_relative - normal_velocity * normal );
+
+    if(tangent.length() > EPSILON)
+    {   
+        tangent = tangent.normalize();
+    
+        float tangent_velocity = dot(tangent, v_relative);
+        
+        if(tangent_velocity < 0.1) {
+            goto out;
+        }
+
+        float perp_rAt = cross2d(rA, tangent);
+        float perp_rBt = cross2d(rB, tangent);
+
+        float fric_mass_eff = 1 / (inv_mA + inv_mB + perp_rAt*perp_rAt/InertiaA + perp_rBt * perp_rBt / InertiaB);
+
+
+        float j_t = -1 * fric_mass_eff * tangent_velocity; 
+
+        float friction_coef = std::min(rectA.get_friction(), rectB.get_friction());
+        float j_t_max = friction_coef * std::abs(j_n);
+        float sign = tangent_velocity / std::abs(tangent_velocity);
+
+        if(std::abs(j_t) > j_t_max)
+        {
+            j_t = -j_t_max * sign;
+        }
+
+
+        Vec2 tangent_impulse = j_t * tangent;
+
+        velocityA = velocityA + (tangent_impulse) * inv_mA;
+        velocityB = velocityB - (tangent_impulse) * inv_mB;
+        
+        angular_velocityA = angular_velocityA + cross2d(rA, tangent_impulse) / InertiaA;
+        angular_velocityB = angular_velocityB - cross2d(rB, tangent_impulse) / InertiaB; 
+
+
+    }
+    out:
+    
+
+    if(!rectA.get_static_indicate())
+    {
+        rectA.set_angle_speed(angular_velocityA);
+        rectA.set_velocity( velocityA );
+    }
+    if(!rectB.get_static_indicate())
+    {
+        rectB.set_angle_speed(angular_velocityB);
+        rectB.set_velocity( velocityB );
+    }
+}
+
+
+
 void CollisionSolver::resolveRectsCollision(Rect& rectA, Rect& rectB)
 {
 
@@ -473,121 +613,7 @@ void CollisionSolver::resolveRectsCollision(Rect& rectA, Rect& rectB)
 
     if(SATcheckCollision(rectA, rectB, n, contact_point, depth))
     {   
-
-        Vec2 center_massA = rectA.get_position();
-        Vec2 center_massB = rectB.get_position();
-        Vec2 velocityA = rectA.get_velocity();
-        Vec2 velocityB = rectB.get_velocity();
-        float massA = rectA.get_mass();
-        float massB = rectB.get_mass();
-        float angular_velocityA = rectA.get_angle_speed();
-        float angular_velocityB = rectB.get_angle_speed();
-        float InertiaA = rectA.get_inertia();
-        float InertiaB = rectB.get_inertia();
-
-        Vec2 rA = contact_point - center_massA;
-        Vec2 rB = contact_point - center_massB;  
-
-        if(massA == 0 || massB == 0) std::cout << "zero mass!!!" << std::endl;
-
-        float inv_mA = 1/massA;
-        float inv_mB = 1/massB;
-
-        float slop = 0.01;
-        float percent = 0.2;
-
-        float clamp = std::max(depth - slop, 0.f);
-        Vec2 correction = (clamp * percent) / (inv_mA + inv_mB) * n; 
-
-        rectA.set_position(rectA.get_position() + correction * inv_mA);
-        rectB.set_position(rectB.get_position() - correction * inv_mB);
-
-        Vec2 cross_VxW_A( -angular_velocityA * rA.y, angular_velocityA * rA.x);
-        Vec2 cross_VxW_B( -angular_velocityB * rB.y, angular_velocityB * rB.x); 
-
-        Vec2 VcontactA = velocityA + cross_VxW_A;
-        Vec2 VcontactB = velocityB + cross_VxW_B;
-
-        Vec2 v_relative = VcontactA - VcontactB;
-
-        float normal_velocity = dot( v_relative, n );
-
-        float perp_rA = cross2d(rA, n);
-        float perp_rB = cross2d(rB, n);
-
-        float mass_eff =  1 / (inv_mA + inv_mB + (perp_rA * perp_rA) / InertiaA +  (perp_rB * perp_rB) / InertiaB );
-        float elasticity = std::min(rectA.get_elasiticy(), rectB.get_elasiticy());
-
-        float j_n = -(1 + elasticity) * normal_velocity * mass_eff;
-        Vec2 normal_impulse = j_n * n;
-
-        velocityA = velocityA + (normal_impulse) * inv_mA;
-        velocityB = velocityB - (normal_impulse) * inv_mB;
-
-        angular_velocityA = angular_velocityA + cross2d(rA, normal_impulse) / InertiaA;
-        angular_velocityB = angular_velocityB - cross2d(rB, normal_impulse) / InertiaB; 
-
-
-        //calculate friction
-        cross_VxW_A = Vec2( -angular_velocityA * rA.y, angular_velocityA * rA.x);
-        cross_VxW_B = Vec2( -angular_velocityB * rB.y, angular_velocityB * rB.x);
-
-        VcontactA = velocityA + cross_VxW_A;
-        VcontactB = velocityB + cross_VxW_B;
-        v_relative = VcontactA - VcontactB;
-
-        Vec2 tangent = ( v_relative - normal_velocity * n );
-
-        if(tangent.length() > 1e-6f)
-        {   
-            tangent = tangent.normalize();
-        
-            float tangent_velocity = dot(tangent, v_relative);
-            
-            if(tangent_velocity < 0.1) {
-                goto out;
-            }
-
-            float perp_rAt = cross2d(rA, tangent);
-            float perp_rBt = cross2d(rB, tangent);
-
-            float fric_mass_eff = 1 / (inv_mA + inv_mB + perp_rAt*perp_rAt/InertiaA + perp_rBt * perp_rBt / InertiaB);
-
-
-            float j_t = -1 * fric_mass_eff * tangent_velocity; 
-
-            float friction_coef = std::min(rectA.get_friction(), rectB.get_friction());
-            float j_t_max = friction_coef * std::abs(j_n);
-            float sign = tangent_velocity / std::abs(tangent_velocity);
-
-            if(std::abs(j_t) > j_t_max)
-            {
-                j_t = -j_t_max * sign;
-            }
-
-
-            Vec2 tangent_impulse = j_t * tangent;
-
-            velocityA = velocityA + (tangent_impulse) * inv_mA;
-            velocityB = velocityB - (tangent_impulse) * inv_mB;
-            
-            angular_velocityA = angular_velocityA + cross2d(rA, tangent_impulse) / InertiaA;
-            angular_velocityB = angular_velocityB - cross2d(rB, tangent_impulse) / InertiaB; 
-
-
-        }
-        out:
-        
-
-
-        rectA.set_velocity( velocityA );
-        rectB.set_velocity( velocityB );
-
-        rectA.set_angle_speed(angular_velocityA);
-        rectB.set_angle_speed(angular_velocityB);
-
-
-
+        applyCollisionReaction(rectA, rectB, n, contact_point, depth);
     }
 
 

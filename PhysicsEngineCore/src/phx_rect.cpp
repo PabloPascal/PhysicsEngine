@@ -16,7 +16,8 @@ m_angle(0),
 m_acceleration(0),
 m_angle_speed(0),
 m_elasticity(0),
-m_friction(0)
+m_friction(0),
+b_rotation_apply(false)
 {
     for(short i = 0; i < 4; i++)
         vertices[i] = Vec2(0,0);
@@ -35,7 +36,8 @@ m_angle(0),
 m_acceleration(0),
 m_angle_speed(0),
 m_elasticity(0),
-m_friction(0)
+m_friction(0),
+b_rotation_apply(false)
 {
     m_inertia = 1/12.f * m_mass * (m_width * m_width + m_height * m_height);
 
@@ -60,7 +62,8 @@ m_angle(0),
 m_acceleration(0),
 m_angle_speed(0),
 m_elasticity(0),
-m_friction(0)
+m_friction(0),
+b_rotation_apply(false)
 {
     
 }
@@ -85,14 +88,15 @@ void Rect::set_rotate(float rad){
 
 void Rect::update(float dt){
 
+    if(!b_static)
+    {
+        m_angle = m_angle + m_angle_speed * dt;
+        set_rotate(m_angle_speed * dt);
+        m_angle_speed *= std::exp(-2.0f * dt);  // Экспоненциальное затухание
 
-    m_angle = m_angle + m_angle_speed * dt;
-    set_rotate(m_angle_speed * dt);
-    m_angle_speed *= std::exp(-2.0f * dt);  // Экспоненциальное затухание
-
-    m_velocity = m_velocity + m_acceleration * dt;
-    m_position = m_position + m_velocity * dt;
-
+        m_velocity = m_velocity + m_acceleration * dt;
+        m_position = m_position + m_velocity * dt;
+    }
 
 }
 

@@ -30,6 +30,7 @@ public:
     inline bool get_force_gravity_indicate() const { return b_force_gravity;}
     inline bool get_move_indicate() const {return b_move;}
     inline bool get_bound_collision() const {return b_bound_collision;}
+    inline bool get_static_indicate(){return b_static;}
 
     inline void set_position(const Vec2 position) {m_center = position; }
     inline void set_velocity(const Vec2 velocity) {m_velocity = velocity;}
@@ -49,6 +50,7 @@ public:
     inline void set_angle_speed(float angle_speed)  {m_angle_speed = angle_speed;}
     inline void set_angle(float angle) {m_angle = angle;}
     inline void set_bound_collision(bool bound_collision) { b_bound_collision = bound_collision;}
+    inline void set_static_apply(bool static_on) {b_static = static_on;}
 
     void update(float dt);
 private:
@@ -70,6 +72,7 @@ private:
     bool b_move;
     bool b_collision;
     bool b_bound_collision;
+    bool b_static;
 
 };
 

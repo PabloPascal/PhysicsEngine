@@ -219,14 +219,16 @@ int main(){
 
     std::shared_ptr<Phx::Rect> rect0
     = std::make_shared<Phx::Rect>(Phx::Vec2(500, 392), Phx::Vec2(50,50), 20.f);   
+    rect0->set_static(true);
     rect0->set_velocity({0,0});
     rect0->set_elasticity(0.5);
-    rect0->set_elasticity(0.8);
+    rect0->set_friction(1.f);
     rect0->set_angle_speed(0);
     rect0->set_collision_indicate(true);
     
     std::shared_ptr<Phx::Rect> rect1
-    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 560),Phx::Vec2(WIDTH,50), std::numeric_limits<float>::max());   
+    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 560),Phx::Vec2(WIDTH,50), std::numeric_limits<float>::max());  
+    rect1->set_static(true); 
     rect1->set_velocity({0,0});
     rect1->set_elasticity(0.8);
     rect1->set_friction(0.8);
@@ -281,11 +283,12 @@ int main(){
                     
                     std::shared_ptr<Phx::Rect> rect
                      = std::make_shared<Phx::Rect>(Phx::Vec2(event.button.x, event.button.y),Phx::Vec2(50,50), 20);   
+                    rect->set_static(false);
                     rect->set_velocity({0,0});
-                    rect->set_elasticity(0.5);
+                    rect->set_elasticity(0.2);
                     rect->set_angle_speed(0);
                     rect->set_acceleration({0,500});
-                    rect->set_friction(0.8);
+                    rect->set_friction(1.f);
                     rect->set_collision_indicate(true);
 
                     world.add_rect(rect);
