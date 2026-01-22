@@ -1,0 +1,3 @@
+[submodule "PhysicsEngineEditor/external/imgui"]
+	path = PhysicsEngineEditor/external/imgui
+	url = https://github.com/ocornut/imgui.git
