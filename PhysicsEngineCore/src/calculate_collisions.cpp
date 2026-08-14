@@ -283,7 +283,7 @@ Vec2 CollisionSolver::FindContactPoint(Rect& rectA, Rect& rectB)
 
     for(short i = 0; i < 4; i++)
     {
-        if(checkPointInsidePolygon(rectA.get_vertices()[i], rectB));
+        if(checkPointInsidePolygon(rectA.get_vertices()[i], rectB))
         {
             vertex_inside.push_back(rectA.get_vertices()[i]);
         }
@@ -291,7 +291,7 @@ Vec2 CollisionSolver::FindContactPoint(Rect& rectA, Rect& rectB)
 
     for(short i = 0; i < 4; i++)
     {
-        if(checkPointInsidePolygon(rectB.get_vertices()[i], rectA));
+        if(checkPointInsidePolygon(rectB.get_vertices()[i], rectA))
         {
             vertex_inside.push_back(rectB.get_vertices()[i]);
         }
@@ -460,7 +460,39 @@ bool CollisionSolver::CircleRectCheckCollision(Circle& circle, Rect& rect, Vec2&
     Vec2 dir = {local.x - closestPoint.x, local.y - closestPoint.y};
 
     float dist = dot(dir, dir); //square of dist
-    Vec2 local_norm = dir.normalize();
+
+    Vec2 local_norm;
+
+    if(dist < 0.000001f)
+    {
+        float dx = half_w - abs(local.x);
+        float dy = half_h - abs(local.y);
+
+    if(dx < dy)
+    {
+        local_norm = {
+            local.x > 0 ? 1.f : -1.f,
+            0
+        };
+
+        penetration = r + dx;
+    }
+    else
+    {
+        local_norm = {
+            0,
+            local.y > 0 ? 1.f : -1.f
+        };
+
+        penetration = r + dy;
+    }
+    }
+    else
+    {
+        local_norm = dir.normalize();
+    }
+
+
     normal = transpose(rect.get_transform()) * local_norm; 
 
     penetration = r - std::sqrt(dist);  
@@ -531,6 +563,7 @@ void CollisionSolver::applyCollisionReaction(Rect& rectA, Rect& rectB, Vec2 norm
 
     float j_n = -(1 + elasticity) * normal_velocity * mass_eff;
     Vec2 normal_impulse = j_n * normal;
+
 
     velocityA = velocityA + (normal_impulse) * inv_mA;
     velocityB = velocityB - (normal_impulse) * inv_mB;
