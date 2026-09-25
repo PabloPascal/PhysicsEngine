@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -Wl,--dependency-file=CMakeFiles/PhysicsEngineEditor.dir/link.d CMakeFiles/PhysicsEngineEditor.dir/main.cpp.o -o PhysicsEngineEditor  ../PhysicsEngineCore/libPhysicsEngineCore.a /usr/lib/libSDL2_image.so /usr/lib/libSDL2.so

@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/pablo/Desktop/projects/PhysicsEngine/build/cmake_install.cmake",
+		"/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore/cmake_install.cmake",
+		"/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineEditor/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

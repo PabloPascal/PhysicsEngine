@@ -1,0 +1,142 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2-Debug-e58719514f86dea4dd92.json",
+					"name" : "PkgConfig::SDL2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PkgConfig::SDL2_IMAGE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PkgConfig__SDL2_IMAGE-Debug-961f5f882de595637faa.json",
+					"name" : "PkgConfig::SDL2_IMAGE",
+					"projectIndex" : 0
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-Debug-b23a0b23c080df4d29ba.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "PhysicsEngineCore",
+					"jsonFile" : "directory-PhysicsEngineCore-Debug-fc0a5db940760a550538.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "PhysicsEngineCore",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "PhysicsEngineEditor",
+					"jsonFile" : "directory-PhysicsEngineEditor-Debug-d233e66d9c9137e7182a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "PhysicsEngineEditor",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1
+					],
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "PhysicsEngine",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "PhysicsEngineEditor",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "PhysicsEngineCore::@a00f4910f9b3e3da80e9",
+					"jsonFile" : "target-PhysicsEngineCore-Debug-2d197a1a5d8a4e4e4880.json",
+					"name" : "PhysicsEngineCore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "PhysicsEngineEditor::@4381da55f991e2dc4085",
+					"jsonFile" : "target-PhysicsEngineEditor-Debug-e01e306165ff7b7753da.json",
+					"name" : "PhysicsEngineEditor",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pablo/Desktop/projects/PhysicsEngine/build",
+		"source" : "/home/pablo/Desktop/projects/PhysicsEngine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	}
+}

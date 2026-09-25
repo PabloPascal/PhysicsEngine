@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineEditor",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -isystem /usr/include/SDL2 -isystem /usr/include/libpng16 -isystem /usr/include/rav1e -isystem /usr/include/svt-av1 -isystem /usr/include/webp -g -D_GNU_SOURCE=1 -D_REENTRANT -DHWY_SHARED_DEFINE -DWITH_GZFILEOP -DAVIF_DLL -DEB_DLL -DRTC_BUILD=0 -o CMakeFiles/PhysicsEngineEditor.dir/main.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineEditor/main.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineEditor/main.cpp",
+  "output": "PhysicsEngineEditor/CMakeFiles/PhysicsEngineEditor.dir/main.cpp.o"
+}
+]

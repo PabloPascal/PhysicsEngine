@@ -1,0 +1,2 @@
+/usr/bin/ar qc libPhysicsEngineCore.a CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o
+/usr/bin/ranlib libPhysicsEngineCore.a
