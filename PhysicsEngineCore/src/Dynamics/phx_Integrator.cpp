@@ -4,11 +4,7 @@
 
 namespace Phx{
 
-    void solver(Body& body, float dt){
-
-        if(body.is_static) 
-            return;
-
+    void Integrator::solver(Body& body, float dt){
 
         body.velocity = body.velocity + body.force * body.inv_mass * dt;
         body.position = body.position + body.velocity*dt;

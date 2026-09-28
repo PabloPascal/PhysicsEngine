@@ -1,7 +1,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <phx_vector.hpp>
+#include "Geometry/phx_vector.hpp"
 #include <iostream>
 
 namespace Phx{
@@ -32,7 +32,7 @@ public:
     }
 
 
-    Matrix2 operator*(float scalar){
+    Matrix2 operator*(float scalar) const{
         
         return Matrix2(a11 * scalar, a12 * scalar,
                       a21 * scalar, a22 * scalar);
@@ -40,7 +40,7 @@ public:
     }
 
 
-    Matrix2 operator/(float scalar){
+    Matrix2 operator/(float scalar) const{
         
         return Matrix2(a11 / scalar, a12 / scalar,
                       a21 / scalar, a22 / scalar);
@@ -48,7 +48,7 @@ public:
     }
 
 
-    Matrix2 operator*(const Matrix2& mat){
+    Matrix2 operator*(const Matrix2& mat) const{
         return Matrix2(
             a11 * mat.a11 + a12 * mat.a21, 
             a11 * mat.a12 + a12 * mat.a22, 
@@ -58,7 +58,7 @@ public:
     }
 
 
-    Matrix2 operator+(const Matrix2& mat){
+    Matrix2 operator+(const Matrix2& mat) const{
         return Matrix2( 
             a11 + mat.a11, 
             a12 + mat.a12, 
@@ -68,7 +68,7 @@ public:
     }
 
 
-    Matrix2 operator-(const Matrix2& mat){
+    Matrix2 operator-(const Matrix2& mat) const{
         return Matrix2( 
             a11 - mat.a11, 
             a12 - mat.a12, 
@@ -85,7 +85,7 @@ public:
         return *this;
     }
 
-    Vec2 operator*(const Vec2& v){
+    Vec2 operator*(const Vec2& v) const{
         return Vec2(
             a11 * v.x + a12 * v.y, 
             a21 * v.x + a22 * v.y
@@ -134,5 +134,6 @@ static Matrix2 operator*(float scalar, Matrix2 mat){
 
 
 }//namespace
+
 
 #endif

@@ -8,11 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o.d"
-  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o.d"
-  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o.d"
-  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o.d"
-  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o.d"
+  "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o" "gcc" "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -130,125 +130,197 @@ PhysicsEngineCore/fast:
 	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build
 .PHONY : PhysicsEngineCore/fast
 
-src/calculate_collisions.o: src/calculate_collisions.cpp.o
-.PHONY : src/calculate_collisions.o
+src/Colliders/phx_CircleCollider.o: src/Colliders/phx_CircleCollider.cpp.o
+.PHONY : src/Colliders/phx_CircleCollider.o
 
 # target to build an object file
-src/calculate_collisions.cpp.o:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o
-.PHONY : src/calculate_collisions.cpp.o
+src/Colliders/phx_CircleCollider.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o
+.PHONY : src/Colliders/phx_CircleCollider.cpp.o
 
-src/calculate_collisions.i: src/calculate_collisions.cpp.i
-.PHONY : src/calculate_collisions.i
+src/Colliders/phx_CircleCollider.i: src/Colliders/phx_CircleCollider.cpp.i
+.PHONY : src/Colliders/phx_CircleCollider.i
 
 # target to preprocess a source file
-src/calculate_collisions.cpp.i:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.i
-.PHONY : src/calculate_collisions.cpp.i
+src/Colliders/phx_CircleCollider.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.i
+.PHONY : src/Colliders/phx_CircleCollider.cpp.i
 
-src/calculate_collisions.s: src/calculate_collisions.cpp.s
-.PHONY : src/calculate_collisions.s
+src/Colliders/phx_CircleCollider.s: src/Colliders/phx_CircleCollider.cpp.s
+.PHONY : src/Colliders/phx_CircleCollider.s
 
 # target to generate assembly for a file
-src/calculate_collisions.cpp.s:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.s
-.PHONY : src/calculate_collisions.cpp.s
+src/Colliders/phx_CircleCollider.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.s
+.PHONY : src/Colliders/phx_CircleCollider.cpp.s
 
-src/calculate_force.o: src/calculate_force.cpp.o
-.PHONY : src/calculate_force.o
+src/Colliders/phx_RectCollider.o: src/Colliders/phx_RectCollider.cpp.o
+.PHONY : src/Colliders/phx_RectCollider.o
 
 # target to build an object file
-src/calculate_force.cpp.o:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o
-.PHONY : src/calculate_force.cpp.o
+src/Colliders/phx_RectCollider.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o
+.PHONY : src/Colliders/phx_RectCollider.cpp.o
 
-src/calculate_force.i: src/calculate_force.cpp.i
-.PHONY : src/calculate_force.i
+src/Colliders/phx_RectCollider.i: src/Colliders/phx_RectCollider.cpp.i
+.PHONY : src/Colliders/phx_RectCollider.i
 
 # target to preprocess a source file
-src/calculate_force.cpp.i:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.i
-.PHONY : src/calculate_force.cpp.i
+src/Colliders/phx_RectCollider.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.i
+.PHONY : src/Colliders/phx_RectCollider.cpp.i
 
-src/calculate_force.s: src/calculate_force.cpp.s
-.PHONY : src/calculate_force.s
+src/Colliders/phx_RectCollider.s: src/Colliders/phx_RectCollider.cpp.s
+.PHONY : src/Colliders/phx_RectCollider.s
 
 # target to generate assembly for a file
-src/calculate_force.cpp.s:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.s
-.PHONY : src/calculate_force.cpp.s
+src/Colliders/phx_RectCollider.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.s
+.PHONY : src/Colliders/phx_RectCollider.cpp.s
 
-src/phx_circle.o: src/phx_circle.cpp.o
-.PHONY : src/phx_circle.o
+src/Collisions/phx_NarrowPhase.o: src/Collisions/phx_NarrowPhase.cpp.o
+.PHONY : src/Collisions/phx_NarrowPhase.o
 
 # target to build an object file
-src/phx_circle.cpp.o:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o
-.PHONY : src/phx_circle.cpp.o
+src/Collisions/phx_NarrowPhase.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o
+.PHONY : src/Collisions/phx_NarrowPhase.cpp.o
 
-src/phx_circle.i: src/phx_circle.cpp.i
-.PHONY : src/phx_circle.i
+src/Collisions/phx_NarrowPhase.i: src/Collisions/phx_NarrowPhase.cpp.i
+.PHONY : src/Collisions/phx_NarrowPhase.i
 
 # target to preprocess a source file
-src/phx_circle.cpp.i:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.i
-.PHONY : src/phx_circle.cpp.i
+src/Collisions/phx_NarrowPhase.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.i
+.PHONY : src/Collisions/phx_NarrowPhase.cpp.i
 
-src/phx_circle.s: src/phx_circle.cpp.s
-.PHONY : src/phx_circle.s
+src/Collisions/phx_NarrowPhase.s: src/Collisions/phx_NarrowPhase.cpp.s
+.PHONY : src/Collisions/phx_NarrowPhase.s
 
 # target to generate assembly for a file
-src/phx_circle.cpp.s:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.s
-.PHONY : src/phx_circle.cpp.s
+src/Collisions/phx_NarrowPhase.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.s
+.PHONY : src/Collisions/phx_NarrowPhase.cpp.s
 
-src/phx_rect.o: src/phx_rect.cpp.o
-.PHONY : src/phx_rect.o
+src/Collisions/phx_Solver.o: src/Collisions/phx_Solver.cpp.o
+.PHONY : src/Collisions/phx_Solver.o
 
 # target to build an object file
-src/phx_rect.cpp.o:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o
-.PHONY : src/phx_rect.cpp.o
+src/Collisions/phx_Solver.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o
+.PHONY : src/Collisions/phx_Solver.cpp.o
 
-src/phx_rect.i: src/phx_rect.cpp.i
-.PHONY : src/phx_rect.i
+src/Collisions/phx_Solver.i: src/Collisions/phx_Solver.cpp.i
+.PHONY : src/Collisions/phx_Solver.i
 
 # target to preprocess a source file
-src/phx_rect.cpp.i:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.i
-.PHONY : src/phx_rect.cpp.i
+src/Collisions/phx_Solver.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.i
+.PHONY : src/Collisions/phx_Solver.cpp.i
 
-src/phx_rect.s: src/phx_rect.cpp.s
-.PHONY : src/phx_rect.s
+src/Collisions/phx_Solver.s: src/Collisions/phx_Solver.cpp.s
+.PHONY : src/Collisions/phx_Solver.s
 
 # target to generate assembly for a file
-src/phx_rect.cpp.s:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.s
-.PHONY : src/phx_rect.cpp.s
+src/Collisions/phx_Solver.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.s
+.PHONY : src/Collisions/phx_Solver.cpp.s
 
-src/phx_world.o: src/phx_world.cpp.o
-.PHONY : src/phx_world.o
+src/Dynamics/phx_Force.o: src/Dynamics/phx_Force.cpp.o
+.PHONY : src/Dynamics/phx_Force.o
 
 # target to build an object file
-src/phx_world.cpp.o:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o
-.PHONY : src/phx_world.cpp.o
+src/Dynamics/phx_Force.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o
+.PHONY : src/Dynamics/phx_Force.cpp.o
 
-src/phx_world.i: src/phx_world.cpp.i
-.PHONY : src/phx_world.i
+src/Dynamics/phx_Force.i: src/Dynamics/phx_Force.cpp.i
+.PHONY : src/Dynamics/phx_Force.i
 
 # target to preprocess a source file
-src/phx_world.cpp.i:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.i
-.PHONY : src/phx_world.cpp.i
+src/Dynamics/phx_Force.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.i
+.PHONY : src/Dynamics/phx_Force.cpp.i
 
-src/phx_world.s: src/phx_world.cpp.s
-.PHONY : src/phx_world.s
+src/Dynamics/phx_Force.s: src/Dynamics/phx_Force.cpp.s
+.PHONY : src/Dynamics/phx_Force.s
 
 # target to generate assembly for a file
-src/phx_world.cpp.s:
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.s
-.PHONY : src/phx_world.cpp.s
+src/Dynamics/phx_Force.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.s
+.PHONY : src/Dynamics/phx_Force.cpp.s
+
+src/Dynamics/phx_Gravity.o: src/Dynamics/phx_Gravity.cpp.o
+.PHONY : src/Dynamics/phx_Gravity.o
+
+# target to build an object file
+src/Dynamics/phx_Gravity.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o
+.PHONY : src/Dynamics/phx_Gravity.cpp.o
+
+src/Dynamics/phx_Gravity.i: src/Dynamics/phx_Gravity.cpp.i
+.PHONY : src/Dynamics/phx_Gravity.i
+
+# target to preprocess a source file
+src/Dynamics/phx_Gravity.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.i
+.PHONY : src/Dynamics/phx_Gravity.cpp.i
+
+src/Dynamics/phx_Gravity.s: src/Dynamics/phx_Gravity.cpp.s
+.PHONY : src/Dynamics/phx_Gravity.s
+
+# target to generate assembly for a file
+src/Dynamics/phx_Gravity.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.s
+.PHONY : src/Dynamics/phx_Gravity.cpp.s
+
+src/Dynamics/phx_Integrator.o: src/Dynamics/phx_Integrator.cpp.o
+.PHONY : src/Dynamics/phx_Integrator.o
+
+# target to build an object file
+src/Dynamics/phx_Integrator.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o
+.PHONY : src/Dynamics/phx_Integrator.cpp.o
+
+src/Dynamics/phx_Integrator.i: src/Dynamics/phx_Integrator.cpp.i
+.PHONY : src/Dynamics/phx_Integrator.i
+
+# target to preprocess a source file
+src/Dynamics/phx_Integrator.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.i
+.PHONY : src/Dynamics/phx_Integrator.cpp.i
+
+src/Dynamics/phx_Integrator.s: src/Dynamics/phx_Integrator.cpp.s
+.PHONY : src/Dynamics/phx_Integrator.s
+
+# target to generate assembly for a file
+src/Dynamics/phx_Integrator.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.s
+.PHONY : src/Dynamics/phx_Integrator.cpp.s
+
+src/phx_World.o: src/phx_World.cpp.o
+.PHONY : src/phx_World.o
+
+# target to build an object file
+src/phx_World.cpp.o:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o
+.PHONY : src/phx_World.cpp.o
+
+src/phx_World.i: src/phx_World.cpp.i
+.PHONY : src/phx_World.i
+
+# target to preprocess a source file
+src/phx_World.cpp.i:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.i
+.PHONY : src/phx_World.cpp.i
+
+src/phx_World.s: src/phx_World.cpp.s
+.PHONY : src/phx_World.s
+
+# target to generate assembly for a file
+src/phx_World.cpp.s:
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build && $(MAKE) $(MAKESILENT) -f PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.s
+.PHONY : src/phx_World.cpp.s
 
 # Help Target
 help:
@@ -259,21 +331,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PhysicsEngineCore"
-	@echo "... src/calculate_collisions.o"
-	@echo "... src/calculate_collisions.i"
-	@echo "... src/calculate_collisions.s"
-	@echo "... src/calculate_force.o"
-	@echo "... src/calculate_force.i"
-	@echo "... src/calculate_force.s"
-	@echo "... src/phx_circle.o"
-	@echo "... src/phx_circle.i"
-	@echo "... src/phx_circle.s"
-	@echo "... src/phx_rect.o"
-	@echo "... src/phx_rect.i"
-	@echo "... src/phx_rect.s"
-	@echo "... src/phx_world.o"
-	@echo "... src/phx_world.i"
-	@echo "... src/phx_world.s"
+	@echo "... src/Colliders/phx_CircleCollider.o"
+	@echo "... src/Colliders/phx_CircleCollider.i"
+	@echo "... src/Colliders/phx_CircleCollider.s"
+	@echo "... src/Colliders/phx_RectCollider.o"
+	@echo "... src/Colliders/phx_RectCollider.i"
+	@echo "... src/Colliders/phx_RectCollider.s"
+	@echo "... src/Collisions/phx_NarrowPhase.o"
+	@echo "... src/Collisions/phx_NarrowPhase.i"
+	@echo "... src/Collisions/phx_NarrowPhase.s"
+	@echo "... src/Collisions/phx_Solver.o"
+	@echo "... src/Collisions/phx_Solver.i"
+	@echo "... src/Collisions/phx_Solver.s"
+	@echo "... src/Dynamics/phx_Force.o"
+	@echo "... src/Dynamics/phx_Force.i"
+	@echo "... src/Dynamics/phx_Force.s"
+	@echo "... src/Dynamics/phx_Gravity.o"
+	@echo "... src/Dynamics/phx_Gravity.i"
+	@echo "... src/Dynamics/phx_Gravity.s"
+	@echo "... src/Dynamics/phx_Integrator.o"
+	@echo "... src/Dynamics/phx_Integrator.i"
+	@echo "... src/Dynamics/phx_Integrator.s"
+	@echo "... src/phx_World.o"
+	@echo "... src/phx_World.i"
+	@echo "... src/phx_World.s"
 .PHONY : help
 
 

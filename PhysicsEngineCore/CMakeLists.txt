@@ -4,20 +4,41 @@ set(ENGINE_PROJECT_NAME PhysicsEngineCore)
 
 
 set(CORE_PUBLIC_INCLUDES
-src/phx_vector.hpp
-src/phx_circle.hpp
-src/calculate_collisions.hpp
-src/phx_world.hpp
-src/calculate_force.hpp
-src/phx_rect.hpp
+src/phx_Body.hpp 
+src/phx_Material.hpp
+src/phx_World.hpp
+
+src/Colliders/phx_CircleCollider.hpp 
+src/Colliders/phx_Collider.hpp
+src/Colliders/phx_RectCollider.hpp
+
+src/Collisions/phx_Manifolds.hpp
+src/Collisions/phx_NarrowPhase.hpp 
+src/Collisions/phx_Solver.hpp 
+
+src/Dynamics/phx_Integrator.hpp
+
+src/Geometry/phx_aabb.hpp 
+src/Geometry/phx_matrix.hpp 
+src/Geometry/phx_utils.hpp 
+src/Geometry/phx_vector.hpp
+src/Geometry/phx_matrix.hpp
+
 )
 
 set(CORE_PUBLIC_SOURCES 
-src/phx_circle.cpp
-src/calculate_collisions.cpp
-src/phx_world.cpp
-src/calculate_force.cpp
-src/phx_rect.cpp
+src/phx_World.cpp
+
+src/Colliders/phx_CircleCollider.cpp
+src/Colliders/phx_RectCollider.cpp 
+
+src/Collisions/phx_NarrowPhase.cpp 
+src/Collisions/phx_Solver.cpp 
+
+src/Dynamics/phx_Force.cpp 
+src/Dynamics/phx_Gravity.cpp 
+src/Dynamics/phx_Integrator.cpp 
+
 )
 
 set(ENGINE_ALL_SOURCES

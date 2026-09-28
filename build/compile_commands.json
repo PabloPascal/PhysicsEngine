@@ -1,33 +1,51 @@
 [
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
-  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp",
-  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp",
-  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o"
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o"
 },
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
-  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp",
-  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp",
-  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o"
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o"
 },
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
-  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp",
-  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp",
-  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o"
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o"
 },
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
-  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp",
-  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp",
-  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o"
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o"
 },
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
-  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp",
-  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp",
-  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o"
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o"
+},
+{
+  "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore",
+  "command": "/usr/bin/g++  -I/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src -g -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp",
+  "file": "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp",
+  "output": "PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o"
 },
 {
   "directory": "/home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineEditor",

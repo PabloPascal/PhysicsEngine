@@ -1,355 +1,324 @@
-#include <iostream>
-#include <chrono>
-#include <phx_vector.hpp>
-#include <calculate_collisions.hpp>
-#include <phx_circle.hpp>
-#include <phx_rect.hpp>
-#include <phx_world.hpp>
 #include <SDL2/SDL.h>
 
+#include <cmath>
+#include <iostream>
+#include <memory>
+#include <vector>
+#include <algorithm>
 
-void drawCircle(SDL_Renderer* renderer, Phx::Circle& circle){
-
-    float r = circle.get_radius();
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
-
-    for(float i = 0; i < 2*r; i++){
-        for(float j = 0; j < 2*r; j++){
-
-            float dx = i - r;
-            float dy = j - r;
-
-            if(dx * dx + dy*dy <= (r+1)*(r+1) && dx * dx + dy*dy >= (r-1)*(r-1)){
-                SDL_RenderDrawPoint(renderer, circle.get_position().x + dx, circle.get_position().y + dy);
-            }
-        }
-    }
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
-
-}
+#include "phx_World.hpp"
+#include "phx_Body.hpp"
+#include "phx_Material.hpp"
+#include "Colliders/phx_CircleCollider.hpp"
+#include "Colliders/phx_RectCollider.hpp"
 
 
-void drawRect(SDL_Renderer* renderer, Phx::Rect& rect){
-    
-    SDL_Rect render_rect;
+namespace {
+
+constexpr int   WINDOW_W = 1200;
+constexpr int   WINDOW_H = 800;
+constexpr float PPM      = 80.f;   // pixels per meter
+
+constexpr SDL_Color BG_COLOR      = { 18,  18,  28, 255};
+constexpr SDL_Color STATIC_COLOR  = { 90,  95, 110, 255};
+constexpr SDL_Color DYNAMIC_COLOR = {230, 120,  60, 255};
+constexpr SDL_Color DEBUG_COLOR   = { 20,  20,  20, 255};
 
 
-
-    SDL_RenderDrawLine(renderer, 40, 12, 23, 22);
-
-    for(short i = 0; i < 4; i++)
-    {
-        if(i < 3)
-        {
-        SDL_RenderDrawLine(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y, 
-                                    rect.get_vertices()[i+1].x, rect.get_vertices()[i+1].y);
-        SDL_RenderDrawPoint(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y);
-
-        }
-        else{
-            SDL_RenderDrawLine(renderer, rect.get_vertices()[3].x, rect.get_vertices()[3].y, 
-                                    rect.get_vertices()[0].x, rect.get_vertices()[0].y);
-            SDL_RenderDrawPoint(renderer, rect.get_vertices()[i].x, rect.get_vertices()[i].y);
-        }
-    } 
-    
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
-
-    
-
-}
-
-
-
-void drawDebug(SDL_Renderer* renderer, Phx::Rect& r, Phx::Circle& c)
+// Мир: x → вправо, y → вверх. Экран: x → вправо, y → вниз.
+SDL_FPoint to_screen(Phx::Vec2 p)
 {
-    float min_dist = std::numeric_limits<float>::max();
-    Phx::Vec2 vert;
-    Phx::Vec2 center = c.get_position();
-
-
-    for(int i = 0; i < 4; i++)
-    {   
-        float dist = Phx::length( c.get_position() - r.get_vertices()[i]);
-        if(dist < min_dist)
-            {
-                min_dist = dist;
-                vert = r.get_vertices()[i];
-            }
-    }
-
-    float penetrate;
-    Phx::Vec2 n;
-    Phx::Vec2 cp;
-
-    if(Phx::CollisionSolver::CircleRectCheckCollision(c, r, n, cp, penetrate))
-    {
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 1);
-        Phx::Circle point(cp, 5);
-        drawCircle(renderer, point);
-        
-    }
-
-    Phx::Vec2 project_vec1 =  r.get_normal1() * -Phx::dot(c.get_position() - vert, r.get_normal1()); 
-    Phx::Vec2 project_vec2 =  r.get_normal2() * -Phx::dot(c.get_position() - vert, r.get_normal2()); 
-
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 1);
-    SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec1.x, center.y + project_vec1.y);
-    SDL_RenderDrawLine(renderer, center.x, center.y, center.x + project_vec2.x, center.y + project_vec2.y);
-
-    SDL_RenderDrawLine(renderer, vert.x, vert.y, center.x, center.y);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 1);
-
-   //std::cout << "is inside = " << Phx::checkPointInsidePolygon(c.get_position(), r) << std::endl;
+    return { p.x * PPM, static_cast<float>(WINDOW_H) - p.y * PPM };
 }
 
 
+Phx::Vec2 to_world(int sx, int sy)
+{
+    return {
+        static_cast<float>(sx) / PPM,
+        static_cast<float>(WINDOW_H - sy) / PPM
+    };
+}
 
-float speed = 250;
-float velocityX = 0;
-float velocityY = 0;
-float rot_speed = 1;
-float rad = 0;
+void fill_circle(SDL_Renderer* r, int cx, int cy, int radius)
+{
+    for (int dy = -radius; dy <= radius; ++dy) {
+        const int dx = static_cast<int>(std::sqrt(
+            static_cast<float>(radius * radius - dy * dy)));
+        SDL_RenderDrawLine(r, cx - dx, cy + dy, cx + dx, cy + dy);
+    }
+}
 
 
-void handleInput(const Uint8* keyboardState) {
-        velocityX = 0;
-        velocityY = 0;
-        rad = 0;
+void draw_circle(SDL_Renderer* r, const Phx::Body& body,
+                 const Phx::CircleCollider& c, SDL_Color color)
+{
+    const SDL_FPoint center = to_screen(body.position);
+    const int pixelRadius   = static_cast<int>(c.get_radius() * PPM);
 
-        // Обработка WASD
-        if (keyboardState[SDL_SCANCODE_W]) {
-            velocityY = -speed;
+    SDL_SetRenderDrawColor(r, color.r, color.g, color.b, color.a);
+    fill_circle(r, static_cast<int>(center.x),
+                   static_cast<int>(center.y), pixelRadius);
+
+    // Радиальная метка — чтобы видеть вращение
+    const float ca = std::cos(body.angle);
+    const float sa = std::sin(body.angle);
+    const Phx::Vec2 edgeWorld = body.position
+                              + Phx::Vec2(ca * c.get_radius(),
+                                          sa * c.get_radius());
+    const SDL_FPoint edgeScreen = to_screen(edgeWorld);
+
+    SDL_SetRenderDrawColor(r, DEBUG_COLOR.r, DEBUG_COLOR.g,
+                              DEBUG_COLOR.b, DEBUG_COLOR.a);
+    SDL_RenderDrawLine(r,
+        static_cast<int>(center.x),     static_cast<int>(center.y),
+        static_cast<int>(edgeScreen.x), static_cast<int>(edgeScreen.y));
+}
+
+
+void draw_rect(SDL_Renderer* r, const Phx::Body& body,
+               const Phx::RectCollider& rc, SDL_Color color)
+{
+    const float hw = rc.get_width()  * 0.5f;
+    const float hh = rc.get_height() * 0.5f;
+
+    const float ca = std::cos(body.angle);
+    const float sa = std::sin(body.angle);
+
+    const Phx::Vec2 local[4] = {
+        {-hw,  hh}, { hw,  hh}, { hw, -hh}, {-hw, -hh}
+    };
+
+    SDL_Vertex verts[4];
+    for (int i = 0; i < 4; ++i) {
+        const float rx = local[i].x * ca - local[i].y * sa;
+        const float ry = local[i].x * sa + local[i].y * ca;
+        const Phx::Vec2 world = body.position + Phx::Vec2(rx, ry);
+        const SDL_FPoint s = to_screen(world);
+
+        verts[i].position   = s;
+        verts[i].color      = color;
+        verts[i].tex_coord  = {0.f, 0.f};
+    }
+    const int indices[6] = {0, 1, 2, 0, 2, 3};
+    SDL_RenderGeometry(r, nullptr, verts, 4, indices, 6);
+
+    // Обводка
+    SDL_SetRenderDrawColor(r, DEBUG_COLOR.r, DEBUG_COLOR.g,
+                              DEBUG_COLOR.b, DEBUG_COLOR.a);
+    SDL_FPoint s[4];
+    for (int i = 0; i < 4; ++i) s[i] = verts[i].position;
+    for (int i = 0; i < 4; ++i)
+        SDL_RenderDrawLine(r,
+            static_cast<int>(s[i].x),         static_cast<int>(s[i].y),
+            static_cast<int>(s[(i+1)%4].x),   static_cast<int>(s[(i+1)%4].y));
+}
+
+
+void draw_body(SDL_Renderer* r, const Phx::Body& body)
+{
+    if (!body.collider) return;
+
+    const SDL_Color color = body.is_static ? STATIC_COLOR : DYNAMIC_COLOR;
+
+    switch (body.collider->type()) {
+    case Phx::ColliderType::Circle:
+        draw_circle(r, body,
+            static_cast<const Phx::CircleCollider&>(*body.collider), color);
+        break;
+    case Phx::ColliderType::Rect:
+        draw_rect(r, body,
+            static_cast<const Phx::RectCollider&>(*body.collider), color);
+        break;
+    }
+}
+
+} // namespace
+
+
+// ---------------------------------------------------------------------------
+// Сцена
+// ---------------------------------------------------------------------------
+
+class Scene {
+public:
+    Phx::PhysicsWorld world;
+
+    Phx::Body* add_circle(float x, float y, float r, float mass, bool isStatic = false)
+    {
+        auto collider = std::make_unique<Phx::CircleCollider>(r);
+        auto body     = std::make_unique<Phx::Body>();
+
+        body->position = {x, y};
+        body->collider = collider.get();
+        body->material = { 0.4f, 0.5f };
+
+        if (isStatic) {
+            body->set_mass(0.f);
+            body->set_inertia(0.f);
+            body->set_static(true);
+        } else {
+            body->set_mass(mass);
+            body->set_inertia(0.5f * mass * r * r);
         }
-        if (keyboardState[SDL_SCANCODE_S]) {
-            velocityY = speed;
+
+        Phx::Body* raw = body.get();
+        m_colliders.push_back(std::move(collider));
+        world.addBody(std::move(body));
+        m_bodies.push_back(raw);
+        return raw;
+    }
+
+    Phx::Body* add_rect(float x, float y, float w, float h, float mass,
+                        bool isStatic = false, float angle = 0.f)
+    {
+        auto collider = std::make_unique<Phx::RectCollider>(w, h);
+        auto body     = std::make_unique<Phx::Body>();
+
+        body->position = {x, y};
+        body->angle    = angle;
+        body->collider = collider.get();
+        body->material = { 0.5f, 0.3f };
+
+        if (isStatic) {
+            body->set_mass(0.f);
+            body->set_inertia(0.f);
+            body->set_static(true);
+        } else {
+            body->set_mass(mass);
+            body->set_inertia(mass * (w*w + h*h) / 12.f);
         }
-        if (keyboardState[SDL_SCANCODE_A]) {
-            velocityX = -speed;
-        }
-        if (keyboardState[SDL_SCANCODE_D]) {
-            velocityX = speed;
-        }
-        if(keyboardState[SDL_SCANCODE_R]){
-            rad += rot_speed;
-        }
-        // Нормализация диагонального движения
-        if (velocityX != 0 && velocityY != 0) {
-            velocityX *= 0.7071f; // 1/√2
-            velocityY *= 0.7071f;
+
+        Phx::Body* raw = body.get();
+        m_colliders.push_back(std::move(collider));
+        world.addBody(std::move(body));
+        m_bodies.push_back(raw);
+        return raw;
+    }
+
+    void apply_gravity(float g = -9.81f)
+    {
+        for (Phx::Body* b : m_bodies) {
+            if (b->is_static) continue;
+            b->force = b->force + Phx::Vec2(0.f, g) * b->mass;
         }
     }
 
+private:
+    std::vector<std::unique_ptr<Phx::Collider>> m_colliders;
+    std::vector<Phx::Body*>                     m_bodies;
+};
 
-constexpr int WIDTH = 1080;
-constexpr int HEIGHT = 720;
 
-int main(){
+static std::unique_ptr<Scene> build_demo_scene()
+{
+    auto s = std::make_unique<Scene>();
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+    // Границы (толщина 0.5 м).
+    s->add_rect(7.5f,   0.25f, 15.f, 0.5f, 0.f, true);   // пол
+    s->add_rect(0.25f,  5.0f,  0.5f, 10.f, 0.f, true);   // левая стена
+    s->add_rect(14.75f, 5.0f,  0.5f, 10.f, 0.f, true);   // правая стена
+
+    // Наклонная плоскость — проверить вращение и трение.
+    s->add_rect(4.f, 4.f, 3.f, 0.4f, 0.f, true, 0.35f);
+
+    // Падающие тела.
+    s->add_circle(6.f,  9.f,  0.4f, 1.0f);
+    s->add_circle(7.f, 11.f,  0.5f, 1.5f);
+    s->add_circle(8.f, 13.f,  0.3f, 0.8f);
+    s->add_rect  (10.f, 15.f, 1.0f, 0.5f, 1.0f, false, 0.3f);
+
+    return s;
+}
+
+
+int main(int, char**)
+{
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        std::cerr << "SDL_Init failed: " << SDL_GetError() << '\n';
         return 1;
     }
-    // Create a window
-    SDL_Window* window = SDL_CreateWindow(
-        "Physics Engine Editor",         // Window title
-        SDL_WINDOWPOS_UNDEFINED,      // Initial x position
-        SDL_WINDOWPOS_UNDEFINED,      // Initial y position
-        WIDTH,                          // Width
-        HEIGHT,                          // Height
-        SDL_WINDOW_SHOWN              // Flags (e.g., SDL_WINDOW_FULLSCREEN)
-    );
 
-    if (window == NULL) {
-        SDL_Log("Could not create window: %s", SDL_GetError());
+    SDL_Window* window = SDL_CreateWindow(
+        "Physics Engine Editor",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        WINDOW_W, WINDOW_H, SDL_WINDOW_SHOWN);
+
+    if (!window) {
+        std::cerr << "SDL_CreateWindow failed: " << SDL_GetError() << '\n';
         SDL_Quit();
         return 1;
     }
-    
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 
-    SDL_Surface* screenSurface = SDL_GetWindowSurface(window);
-    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0, 0, 255));
+    SDL_Renderer* renderer = SDL_CreateRenderer(
+        window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    if (!renderer) {
+        std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << '\n';
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
 
-    bool quit = false;
-    SDL_Event event;
-    
-    float x = WIDTH / 2;
-    float y = HEIGHT / 2;
+    auto scene = build_demo_scene();
 
-    float t = 0;
-    auto previousTime = std::chrono::high_resolution_clock::now();
-    float deltaTime = 0.0f;
+    bool   running = true;
+    Uint64 lastTick = SDL_GetPerformanceCounter();
+    const  Uint64 freq = SDL_GetPerformanceFrequency();
 
-    Phx::Circle *circle1 = new Phx::Circle(540, 510, 30);   
-    circle1->set_velocity({0,0});
-    circle1->set_elasticity(0.8);
-    circle1->set_mass(155);
-    circle1->set_move_on(true);
-    //circle1->set_gravity_on(true);
-    circle1->set_collision_on(false);
-    circle1->set_force_gravity_on(true);
-    
-
-    Phx::Circle* circle2 = new Phx::Circle(x+200, 200, 15);   
-    circle2->set_velocity({0,0});
-    circle2->set_elasticity(0.5);
-    circle2->set_mass(30);
-    circle2->set_move_on(true);
-    //circle2.set_gravity_on(true);
-    circle2->set_collision_on(false);
-    circle2->set_force_gravity_on(true);
-
-    Phx::Circle* circle3 = new Phx::Circle(x - 200, y, 20);   
-    circle3->set_velocity({0,0});
-    circle3->set_elasticity(0.5);
-    circle3->set_mass(80);
-    circle3->set_move_on(true);
-    circle3->set_force_gravity_on(true);
-    //circle3.set_gravity_on(true);
-    //circle3->set_collision_on(true);
-
-    Phx::PhysicsWorld world({WIDTH, HEIGHT});
-    //world.generate_circles(50);
-    world.add_circle(circle1);
-    world.add_circle(circle2);
-    world.add_circle(circle3);
-
-    std::shared_ptr<Phx::Rect> rect0
-    = std::make_shared<Phx::Rect>(Phx::Vec2(500, 392), Phx::Vec2(50,50), 20.f);   
-    rect0->set_static(true);
-    rect0->set_velocity({0,0});
-    rect0->set_elasticity(0.5);
-    rect0->set_friction(1.f);
-    rect0->set_angle_speed(0);
-    rect0->set_collision_indicate(true);
-    
-    std::shared_ptr<Phx::Rect> rect1
-    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 560),Phx::Vec2(WIDTH,50), std::numeric_limits<float>::max());  
-    rect1->set_static(true); 
-    rect1->set_velocity({0,0});
-    rect1->set_elasticity(0.8);
-    rect1->set_friction(0.8);
-    rect1->set_angle_speed(0);
-    rect1->set_acceleration({0,0});
-    rect1->set_collision_indicate(true);
-
-
-    std::shared_ptr<Phx::Rect> rect2
-    = std::make_shared<Phx::Rect>(Phx::Vec2(0, 200),Phx::Vec2(WIDTH/3.f,50), std::numeric_limits<float>::max());   
-    rect2->set_velocity({0,0});
-    rect2->set_elasticity(0.0);
-    rect2->set_angle_speed(0);
-    rect2->set_acceleration({0,0});
-    rect2->set_collision_indicate(true);
-    rect2->set_rotate(30 * 3.1415f / 180.f);
-   
-    world.add_rect(rect0);
-    world.add_rect(rect1);
-    // world.add_rect(rect2);
-
-    while(!quit){
-
-        auto currentTime = std::chrono::high_resolution_clock::now();
-        deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
-        previousTime = currentTime;
-
-
-        while(SDL_PollEvent(&event)){
-            if(event.type == SDL_QUIT)
-                quit = true;
-            if(event.type == SDL_MOUSEBUTTONDOWN){
-
-                if(event.button.button == SDL_BUTTON_LEFT)
-                {
-                    
-                    std::shared_ptr<Phx::Circle> circle = std::make_shared<Phx::Circle>(event.button.x, event.button.y, 23);   
-                    circle->set_velocity({0,0});
-                    circle->set_elasticity(0.8);
-                    circle->set_mass(50);
-                    circle->set_acceleration({0, 500});
-                    circle->set_gravity_on(true);
-                    circle->set_move_on(true);
-                    circle->set_collision_on(true);
-                    circle->set_bound_collision(true);
-                    world.add_circle(circle);
-                    
+    while (running) {
+        SDL_Event e;
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) running = false;
+            if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_ESCAPE) running = false;
+                if (e.key.keysym.sym == SDLK_r) {
+                    scene = build_demo_scene();
                 }
-
-                if(event.button.button == SDL_BUTTON_RIGHT)
-                {
-                    
-                    std::shared_ptr<Phx::Rect> rect
-                     = std::make_shared<Phx::Rect>(Phx::Vec2(event.button.x, event.button.y),Phx::Vec2(50,50), 20);   
-                    rect->set_static(false);
-                    rect->set_velocity({0,0});
-                    rect->set_elasticity(0.2);
-                    rect->set_angle_speed(0);
-                    rect->set_acceleration({0,500});
-                    rect->set_friction(1.f);
-                    rect->set_collision_indicate(true);
-
-                    world.add_rect(rect);
-                    
-                }
-
             }
-            
+
+            if (e.type == SDL_MOUSEBUTTONDOWN) {
+                Phx::Vec2 p = to_world(e.button.x, e.button.y);
+
+                // Клампим к безопасной зоне — не даём заспавнить тело внутри стен.
+                constexpr float MARGIN = 0.7f;
+                p.x = std::clamp(p.x, MARGIN, 15.f - MARGIN);
+                p.y = std::clamp(p.y, MARGIN, 10.f - MARGIN);
+
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    scene->add_circle(p.x, p.y, 0.4f, 1.0f);
+                }
+                else if (e.button.button == SDL_BUTTON_RIGHT) {
+                    scene->add_rect(p.x, p.y, 0.8f, 0.8f, 1.0f);
+                }
+            }
         }
 
-        
+        const Uint64 now = SDL_GetPerformanceCounter();
+        float dt = static_cast<float>(now - lastTick)
+                 / static_cast<float>(freq);
+        lastTick = now;
+        if (dt > 0.05f) dt = 0.05f;   // клампим при просадках
 
-        const Uint8* keyState = SDL_GetKeyboardState(NULL);
-        handleInput(keyState);
-        rect0->set_velocity({velocityX, velocityY});
-        
+        // 1. Гравитация (пока вручную — в Core этого ещё нет).
+        scene->apply_gravity(-9.81f);
 
+        // 2. Физический шаг.
+        scene->world.step(dt);
 
-        rect0->set_rotate(rad*deltaTime);
-
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        // 3. Отрисовка.
+        SDL_SetRenderDrawColor(renderer,
+            BG_COLOR.r, BG_COLOR.g, BG_COLOR.b, BG_COLOR.a);
         SDL_RenderClear(renderer);
-        
-        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-        
-        world.update(deltaTime);
 
-
-        for(auto it : world.get_circles()){
-            drawCircle(renderer, *it);
-        }
-        Phx::Vec2 n;
-        float d;
-        if(Phx::CollisionSolver::AABBcheckCollision(*rect0, *rect1, n, d)){
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        }else{
-            SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-        }
-
-        for(auto it : world.get_rects()){
-            drawRect(renderer, *it);
-        }
-
-        
-        //drawDebug(renderer, *rect0, *circle1);
-
-        
+        for (const auto& body : scene->world.get_bodies())
+            draw_body(renderer, *body);
 
         SDL_RenderPresent(renderer);
-
-        SDL_SetWindowTitle(window, std::to_string(1.f/deltaTime).c_str());
-
-        t += 0.05;
-
     }
-    
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-
-    
     return 0;
 }

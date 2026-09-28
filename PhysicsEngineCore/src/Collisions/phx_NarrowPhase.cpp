@@ -7,26 +7,60 @@
 #include "phx_Manifolds.hpp"
 
 #include <vector>
-
+#include <limits>
 
 namespace Phx{
 
 
-bool NarrowPhase::checkCirclesCollision(const Body& circleA, const Body& circleB){
-    
-    float rA = static_cast<const CircleCollider&>(*circleA.collider).get_radius();
-    float rB = static_cast<const CircleCollider&>(*circleB.collider).get_radius();
+void getPenetrationCircles(const Body& circleA, const Body& circleB, Manifold& manifold) 
+{
+    const CircleCollider& colliderA = static_cast<const CircleCollider&>(*circleA.collider);
+    const CircleCollider& colliderB = static_cast<const CircleCollider&>(*circleB.collider);
 
-    if(length(circleA.position - circleB.position) <= rA + rB){
-        return true;
+    float radiusA = colliderA.get_radius();
+    float radiusB = colliderB.get_radius();
+
+    Vec2 dirAB = circleB.position - circleA.position;
+    float distAB = length(dirAB);
+
+    float penetration = radiusA + radiusB - distAB; 
+    Vec2 normal;
+
+    if(distAB <= 0.0001f){
+        normal = {1, 0};    
     }
+    else
+        normal = dirAB / distAB; 
 
-    return false;
+    
+    manifold.penetration = penetration;
+    manifold.normal = normal;
+
+    manifold.contactPointA = circleA.position + manifold.normal * radiusA;
+    manifold.contactPointB = circleB.position - manifold.normal * radiusB;
+
 
 }
 
 
-bool NarrowPhase::checkRectsCollision(const Body& rectA, const Body& rectB, Manifold& manifold){
+bool checkCirclesCollision(const Body& circleA, const Body& circleB, Manifold& manifold){
+    
+    float rA = static_cast<const CircleCollider&>(*circleA.collider).get_radius();
+    float rB = static_cast<const CircleCollider&>(*circleB.collider).get_radius();
+
+    if(length(circleA.position - circleB.position) > rA + rB){
+        return false;
+    }
+
+    getPenetrationCircles(circleA, circleB, manifold);
+
+    return true;
+
+}
+
+
+
+bool checkRectsCollision(const Body& rectA, const Body& rectB, Manifold& manifold){
     
     Vec2 allAxis[4] = {getRectAxis(rectA)[0], getRectAxis(rectA)[1],
                        getRectAxis(rectB)[0], getRectAxis(rectB)[1]};
@@ -109,88 +143,140 @@ bool NarrowPhase::checkRectsCollision(const Body& rectA, const Body& rectB, Mani
 }
 
 
-bool NarrowPhase::checkCircleRectCollision(const Body& circle, const Body& rect, Manifold& manifold){
-    Vec2 center = circle.position;
+bool checkCircleRectCollision(const Body& circle, const Body& rect, Manifold& manifold){
+    
     const CircleCollider& c_collider = static_cast<const CircleCollider&>(*circle.collider);
     const RectCollider& r_collider = static_cast<const RectCollider&>(*rect.collider);
     
-    float r = c_collider.get_radius();
+    float radius = c_collider.get_radius();
 
     float half_w = r_collider.get_width() / 2.f;
     float half_h = r_collider.get_height() / 2.f;
 
     const auto axis = getRectAxis(rect); 
 
-    Vec2 dv = center - rect.position;
-    Vec2 local = {dot(dv, axis[0]), dot(dv, axis[1])};
+    Vec2 dirRectCircle = circle.position - rect.position;
+
+    Vec2 local = {dot(dirRectCircle, axis[0]), dot(dirRectCircle, axis[1])};
     Vec2 closestPoint;
    
     //clamping
-    closestPoint.x = std::max(-half_w, std::min(dot(dv, axis[0]), half_w));
-    closestPoint.y = std::max(-half_h, std::min(dot(dv, axis[1]), half_h));
+    closestPoint.x = std::max(-half_w, std::min(local.x, half_w));
+    closestPoint.y = std::max(-half_h, std::min(local.y, half_h));
 
 
     Vec2 dir = {local.x - closestPoint.x, local.y - closestPoint.y};
 
-    float dist = dot(dir, dir); 
+    float sq_dist = dot(dir, dir); 
 
     Vec2 local_norm;
 
-    if(dist < 0.000001f)
+    float distance = std::sqrt(sq_dist);
+
+    if(distance < 0.000001f)
     {
         float dx = half_w - abs(local.x);
         float dy = half_h - abs(local.y);
 
-    if(dx < dy)
-    {
-        local_norm = {
-            local.x > 0 ? 1.f : -1.f,
-            0
-        };
+        if(dx < dy){
+            local_norm = {
+                local.x > 0 ? 1.f : -1.f,
+                0
+            };
 
-        manifold.penetration = r + dx;
+            manifold.penetration = radius + dx;
+        }
+        else{
+            local_norm = {
+                0,
+                local.y > 0 ? 1.f : -1.f
+            };
+
+            manifold.penetration = radius + dy;
+        }
     }
     else
     {
-        local_norm = {
-            0,
-            local.y > 0 ? 1.f : -1.f
-        };
-
-        manifold.penetration = r + dy;
-    }
-    }
-    else
-    {
-        local_norm = dir.normalize();
+        if(distance > radius) 
+            return false;
+        
+        local_norm = dir / distance;
+        manifold.penetration = radius - distance;  
     }
 
-
-    //normal = transpose(rect.get_transform()) * local_norm; 
-
-    manifold.penetration = r - std::sqrt(dist);  
     
     Matrix2 transform(axis[0], axis[1]);
 
     //inverse matrix for ortogonal matrix is transpone matrix
     manifold.normal = -1 * (transform * local_norm); 
 
-    manifold.contactPointA = rect.position + transform * closestPoint;
-    manifold.contactPointB = rect.position + transform * closestPoint;
+    Vec2 worldClosestPoint = rect.position + transform * closestPoint;
 
-    if(dist <= r * r)
-        return true;
-    else    
-        return false;
+    manifold.contactPointB = worldClosestPoint;
+    manifold.contactPointA = circle.position + manifold.normal * radius;
 
-}
-
-
-
-bool NarrowPhase::collision(const Body& bodyA, const Body& bodyB, Manifold& manifold){
+    // if(sq_dist <= radius * radius)
+    //     return true;
+    // else    
+    //     return false;
+    return true;
 
 }
 
 
 
+bool NarrowPhase::collision(Body& bodyA, Body& bodyB, Manifold& manifold)
+{
+
+    bool is_collision = false;
+
+    manifold.bodyA = &bodyA;
+    manifold.bodyB = &bodyB;
+
+    switch (bodyA.collider->type())
+    {
+    case ColliderType::Circle:
+
+        if (bodyB.collider->type() == ColliderType::Circle)
+        {
+            return checkCirclesCollision(bodyA, bodyB, manifold);
+        }
+
+        if (bodyB.collider->type() == ColliderType::Rect)
+        {
+            return checkCircleRectCollision(bodyA, bodyB, manifold);
+        }
+
+        break;
+
+    case ColliderType::Rect:
+
+        if (bodyB.collider->type() == ColliderType::Circle)
+        {
+            if (!checkCircleRectCollision(bodyB, bodyA, manifold))
+                return false;
+
+            manifold.normal = -1 * manifold.normal;
+            std::swap(manifold.contactPointA, manifold.contactPointB);
+
+            return true;
+        }
+
+        if (bodyB.collider->type() == ColliderType::Rect)
+        {
+            return checkRectsCollision(bodyA, bodyB, manifold);
+        }
+
+        break;
+
+    default:
+        break;
+    }
+
+    return false;
+
 }
+
+
+
+}//Phx

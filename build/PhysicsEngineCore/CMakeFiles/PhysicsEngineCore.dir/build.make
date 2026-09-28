@@ -72,95 +72,143 @@ include PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
 PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/codegen:
 .PHONY : PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/codegen
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.i"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp > CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.i
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp > CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.i
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.s"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_circle.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.s
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_World.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.s
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.i"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp > CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.i
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.i
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.s"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_collisions.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.s
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.s
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.i"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp > CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.i
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.i
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.s"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_world.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.s
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.s
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.i"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp > CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.i
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.i
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.s"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/calculate_force.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.s
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.s
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.i"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp > CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.i
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.i
 
-PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.s"
-	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/phx_rect.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.s
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Collisions/phx_Solver.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.s
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.i
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Force.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.s
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.i
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.s
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/flags.make
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o: /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o -MF CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o.d -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o -c /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.i"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp > CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.i
+
+PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.s"
+	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp -o CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.s
 
 # Object files for target PhysicsEngineCore
 PhysicsEngineCore_OBJECTS = \
-"CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o" \
-"CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o" \
-"CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o" \
-"CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o" \
-"CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o"
+"CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o" \
+"CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o"
 
 # External object files for target PhysicsEngineCore
 PhysicsEngineCore_EXTERNAL_OBJECTS =
 
-PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_circle.cpp.o
-PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_collisions.cpp.o
-PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_world.cpp.o
-PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/calculate_force.cpp.o
-PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_rect.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/phx_World.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_CircleCollider.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Colliders/phx_RectCollider.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_NarrowPhase.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Collisions/phx_Solver.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Force.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Gravity.cpp.o
+PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/src/Dynamics/phx_Integrator.cpp.o
 PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/build.make
 PhysicsEngineCore/libPhysicsEngineCore.a: PhysicsEngineCore/CMakeFiles/PhysicsEngineCore.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libPhysicsEngineCore.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/pablo/Desktop/projects/PhysicsEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libPhysicsEngineCore.a"
 	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && $(CMAKE_COMMAND) -P CMakeFiles/PhysicsEngineCore.dir/cmake_clean_target.cmake
 	cd /home/pablo/Desktop/projects/PhysicsEngine/build/PhysicsEngineCore && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PhysicsEngineCore.dir/link.txt --verbose=$(VERBOSE)
 

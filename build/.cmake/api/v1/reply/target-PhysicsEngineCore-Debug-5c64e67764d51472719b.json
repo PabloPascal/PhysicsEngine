@@ -1,0 +1,348 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "PhysicsEngineCore/libPhysicsEngineCore.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"PhysicsEngineCore/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 51,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 53,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/home/pablo/Desktop/projects/PhysicsEngine/PhysicsEngineCore/src"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		}
+	],
+	"id" : "PhysicsEngineCore::@a00f4910f9b3e3da80e9",
+	"name" : "PhysicsEngineCore",
+	"nameOnDisk" : "libPhysicsEngineCore.a",
+	"paths" : 
+	{
+		"build" : "PhysicsEngineCore",
+		"source" : "PhysicsEngineCore"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "src",
+			"sourceIndexes" : 
+			[
+				0,
+				8,
+				9,
+				10
+			]
+		},
+		{
+			"name" : "src\\Colliders",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				11,
+				12,
+				13
+			]
+		},
+		{
+			"name" : "src\\Collisions",
+			"sourceIndexes" : 
+			[
+				3,
+				4,
+				14,
+				15,
+				16
+			]
+		},
+		{
+			"name" : "src\\Dynamics",
+			"sourceIndexes" : 
+			[
+				5,
+				6,
+				7,
+				17
+			]
+		},
+		{
+			"name" : "src\\Geometry",
+			"sourceIndexes" : 
+			[
+				18,
+				19,
+				20,
+				21
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/phx_World.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Colliders/phx_CircleCollider.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Colliders/phx_RectCollider.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Collisions/phx_NarrowPhase.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Collisions/phx_Solver.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Dynamics/phx_Force.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Dynamics/phx_Gravity.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"compileGroupIndex" : 0,
+			"path" : "PhysicsEngineCore/src/Dynamics/phx_Integrator.cpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/phx_Body.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/phx_Material.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/phx_World.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Colliders/phx_CircleCollider.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Colliders/phx_Collider.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Colliders/phx_RectCollider.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Collisions/phx_Manifolds.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Collisions/phx_NarrowPhase.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Collisions/phx_Solver.hpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Dynamics/phx_Integrator.hpp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Geometry/phx_aabb.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Geometry/phx_matrix.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Geometry/phx_utils.hpp",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 1,
+			"backtraces" : 
+			[
+				1
+			],
+			"path" : "PhysicsEngineCore/src/Geometry/phx_vector.hpp",
+			"sourceGroupIndex" : 4
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

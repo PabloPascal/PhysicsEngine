@@ -13,7 +13,7 @@ class CircleCollider: public Collider{
 
         AABB computeAABB(const Body& circle) const override;
 
-        ColliderType type() const {
+        ColliderType type() const override{
             return ColliderType::Circle;    
         }
 

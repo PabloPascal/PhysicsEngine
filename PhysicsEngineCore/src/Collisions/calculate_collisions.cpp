@@ -37,7 +37,10 @@ void CollisionSolver::resolveCircleCollision(Circle& circleA, Circle& circleB)
         float massA = circleA.get_mass();
         float massB = circleB.get_mass();
 
-        if(massA == 0 || massB == 0) std::cout << "zero mass!!!" << std::endl;
+        if(massA == 0 || massB == 0) {
+            std::cout << "zero mass!!!" << std::endl;
+            return;
+        }
 
         float Mass1 = 2 * massB / (massA + massB);
         float Mass2 = 2 * massA / (massA + massB);
